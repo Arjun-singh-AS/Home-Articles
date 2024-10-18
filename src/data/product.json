@@ -1,0 +1,468 @@
+[
+  {
+    "id": 1,
+    "name": "Men’s Leather Jacket",
+    "sellingPrice": 199.00,
+    "markPrice": 249.00,
+    "description": "A sleek black leather jacket, perfect for all seasons. Made with premium leather, offering durability and a stylish look.",
+    "hproduct": true,
+    "ratings": 4.5,
+    "reviews": [
+      {
+        "username": "zoe_designer",
+        "comment": "A bit heavy, but looks great!",
+        "rating": 4
+      },
+      {
+        "username": "nick_jr",
+        "comment": "Love the color options!",
+        "rating": 5
+      }
+    ],
+    "colors": [
+      {
+        "color": "Black",
+        "sizes": [
+          { "size": "S", "instock": true },
+          { "size": "M", "instock": false },
+          { "size": "L", "instock": true }
+        ],
+        "images": [
+          "https://example.com/images/product1_black1.jpg",
+          "https://example.com/images/product1_black2.jpg",
+          "https://example.com/images/product1_black3.jpg"
+        ]
+      },
+      {
+        "color": "Brown",
+        "sizes": [
+          { "size": "S", "instock": true },
+          { "size": "M", "instock": true },
+          { "size": "L", "instock": false }
+        ],
+        "images": [
+          "https://example.com/images/product1_brown1.jpg",
+          "https://example.com/images/product1_brown2.jpg",
+          "https://example.com/images/product1_brown3.jpg"
+        ]
+      }
+    ],
+    "categories": ["Outerwear", "Jackets", "Leather"],
+    "image":"/data/t-shirt.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Men's Casual Shirt",
+    "sellingPrice": 49.99,
+    "markPrice": 59.99,
+    "description": "A comfortable casual shirt made with breathable cotton, perfect for everyday wear.",
+    "hproduct": true,
+    "ratings": 4.2,
+    "reviews": [
+      {
+        "username": "john_smith",
+        "comment": "Fits perfectly!",
+        "rating": 5
+      },
+      {
+        "username": "mary_jane",
+        "comment": "A bit too loose for my liking.",
+        "rating": 3
+      }
+    ],
+    "colors": [
+      {
+        "color": "Blue",
+        "sizes": [
+          { "size": "S", "instock": true },
+          { "size": "M", "instock": true },
+          { "size": "L", "instock": true }
+        ],
+        "images": [
+          "https://example.com/images/product2_blue1.jpg",
+          "https://example.com/images/product2_blue2.jpg"
+        ]
+      },
+      {
+        "color": "White",
+        "sizes": [
+          { "size": "S", "instock": true },
+          { "size": "M", "instock": false },
+          { "size": "L", "instock": true }
+        ],
+        "images": [
+          "https://example.com/images/product2_white1.jpg",
+          "https://example.com/images/product2_white2.jpg"
+        ]
+      }
+    ],
+    "categories": ["Shirts", "Casual Wear"],
+    "image":"/data/t-shirt.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Men's Sports Jacket",
+    "sellingPrice": 129.00,
+    "markPrice": 159.00,
+    "description": "A stylish sports jacket made from lightweight material, perfect for both casual and formal occasions.",
+    "hproduct": true,
+    "ratings": 4.8,
+    "reviews": [
+      {
+        "username": "emma_brown",
+        "comment": "Absolutely love this jacket!",
+        "rating": 5
+      },
+      {
+        "username": "chris_w",
+        "comment": "Great value for money.",
+        "rating": 4
+      }
+    ],
+    "colors": [
+      {
+        "color": "Gray",
+        "sizes": [
+          { "size": "S", "instock": true },
+          { "size": "M", "instock": false },
+          { "size": "L", "instock": true }
+        ],
+        "images": [
+          "https://example.com/images/product3_gray1.jpg",
+          "https://example.com/images/product3_gray2.jpg"
+        ]
+      },
+      {
+        "color": "Navy",
+        "sizes": [
+          { "size": "S", "instock": true },
+          { "size": "M", "instock": true },
+          { "size": "L", "instock": false }
+        ],
+        "images": [
+          "https://example.com/images/product3_navy1.jpg",
+          "https://example.com/images/product3_navy2.jpg"
+        ]
+      }
+    ],
+    "categories": ["Jackets", "Sportswear"],
+    "image":"/data/t-shirt.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Men's Running Shoes",
+    "sellingPrice": 89.99,
+    "markPrice": 109.99,
+    "description": "Lightweight and comfortable running shoes designed for maximum performance.",
+    "hproduct": true,
+    "ratings": 4.6,
+    "reviews": [
+      {
+        "username": "mike_j",
+        "comment": "Perfect for my morning runs.",
+        "rating": 5
+      },
+      {
+        "username": "anna_s",
+        "comment": "A little tight, but overall good.",
+        "rating": 4
+      }
+    ],
+    "colors": [
+      {
+        "color": "Black",
+        "sizes": [
+          { "size": "8", "instock": true },
+          { "size": "9", "instock": true },
+          { "size": "10", "instock": false }
+        ],
+        "images": [
+          "https://example.com/images/product4_black1.jpg",
+          "https://example.com/images/product4_black2.jpg"
+        ]
+      },
+      {
+        "color": "Red",
+        "sizes": [
+          { "size": "8", "instock": true },
+          { "size": "9", "instock": false },
+          { "size": "10", "instock": true }
+        ],
+        "images": [
+          "https://example.com/images/product4_red1.jpg",
+          "https://example.com/images/product4_red2.jpg"
+        ]
+      }
+    ],
+    "categories": ["Footwear", "Sports"],
+    "image":"/data/t-shirt.jpg"
+  },
+  {
+    "id": 5,
+    "name": "Men's Chinos Pants",
+    "sellingPrice": 59.99,
+    "markPrice": 79.99,
+    "description": "Classic chinos with a modern fit, made from soft cotton fabric for all-day comfort.",
+    "hproduct": true,
+    "ratings": 4.3,
+    "reviews": [
+      {
+        "username": "laura_t",
+        "comment": "Very comfortable and stylish!",
+        "rating": 5
+      },
+      {
+        "username": "mark_h",
+        "comment": "Good for casual and formal events.",
+        "rating": 4
+      }
+    ],
+    "colors": [
+      {
+        "color": "Beige",
+        "sizes": [
+          { "size": "S", "instock": true },
+          { "size": "M", "instock": false },
+          { "size": "L", "instock": true }
+        ],
+        "images": [
+          "https://example.com/images/product5_beige1.jpg",
+          "https://example.com/images/product5_beige2.jpg"
+        ]
+      },
+      {
+        "color": "Olive",
+        "sizes": [
+          { "size": "S", "instock": true },
+          { "size": "M", "instock": true },
+          { "size": "L", "instock": false }
+        ],
+        "images": [
+          "https://example.com/images/product5_olive1.jpg",
+          "https://example.com/images/product5_olive2.jpg"
+        ]
+      }
+    ],
+    "categories": ["Pants", "Casual Wear"],
+    "image":"/data/t-shirt.jpg"
+  },
+  {
+    "id": 6,
+    "name": "Men's Leather Belt",
+    "sellingPrice": 39.99,
+    "markPrice": 49.99,
+    "description": "A stylish leather belt with a classic buckle, perfect for any outfit.",
+    "hproduct": true,
+    "ratings": 4.7,
+    "reviews": [
+      {
+        "username": "sara_k",
+        "comment": "Excellent quality!",
+        "rating": 5
+      },
+      {
+        "username": "tom_b",
+        "comment": "Good for everyday use.",
+        "rating": 4
+      }
+    ],
+    "colors": [
+      {
+        "color": "Black",
+        "sizes": [
+          { "size": "One Size", "instock": true }
+        ],
+        "images": [
+          "https://example.com/images/product6_black1.jpg",
+          "https://example.com/images/product6_black2.jpg"
+        ]
+      },
+      {
+        "color": "Brown",
+        "sizes": [
+          { "size": "One Size", "instock": true }
+        ],
+        "images": [
+          "https://example.com/images/product6_brown1.jpg",
+          "https://example.com/images/product6_brown2.jpg"
+        ]
+      }
+    ],
+    "categories": ["Accessories", "Belts"],
+    "image":"/data/t-shirt.jpg"
+  },
+  {
+    "id": 7,
+    "name": "Men's Wristwatch",
+    "sellingPrice": 149.99,
+    "markPrice": 199.99,
+    "description": "A modern wristwatch with a sleek design, perfect for any occasion.",
+    "hproduct": true,
+    "ratings": 4.9,
+    "reviews": [
+      {
+        "username": "alice_d",
+        "comment": "Looks fantastic!",
+        "rating": 5
+      },
+      {
+        "username": "bob_m",
+        "comment": "Very stylish and accurate.",
+        "rating": 5
+      }
+    ],
+    "colors": [
+      {
+        "color": "Silver",
+        "sizes": [
+          { "size": "One Size", "instock": true }
+        ],
+        "images": [
+          "https://example.com/images/product7_silver1.jpg",
+          "https://example.com/images/product7_silver2.jpg"
+        ]
+      }
+    ],
+    "categories": ["Accessories", "Watches"],
+    "image":"/data/t-shirt.jpg"
+  },
+  {
+    "id": 8,
+    "name": "Men's Sunglasses",
+    "sellingPrice": 79.99,
+    "markPrice": 99.99,
+    "description": "Stylish sunglasses with UV protection, perfect for sunny days.",
+    "hproduct": true,
+    "ratings": 4.4,
+    "reviews": [
+      {
+        "username": "jake_l",
+        "comment": "Great protection and style!",
+        "rating": 5
+      },
+      {
+        "username": "lucy_n",
+        "comment": "Good value for money.",
+        "rating": 4
+      }
+    ],
+    "colors": [
+      {
+        "color": "Black",
+        "sizes": [
+          { "size": "One Size", "instock": true }
+        ],
+        "images": [
+          "https://example.com/images/product8_black1.jpg",
+          "https://example.com/images/product8_black2.jpg"
+        ]
+      },
+      {
+        "color": "Brown",
+        "sizes": [
+          { "size": "One Size", "instock": true }
+        ],
+        "images": [
+          "https://example.com/images/product8_brown1.jpg",
+          "https://example.com/images/product8_brown2.jpg"
+        ]
+      }
+    ],
+    "categories": ["Accessories", "Sunglasses"],
+    "image":"/data/t-shirt.jpg"
+  },
+  {
+    "id": 9,
+    "name": "Men's Backpack",
+    "sellingPrice": 89.99,
+    "markPrice": 119.99,
+    "description": "Durable and stylish backpack suitable for travel or daily use.",
+    "hproduct": true,
+    "ratings": 4.5,
+    "reviews": [
+      {
+        "username": "olivia_p",
+        "comment": "Perfect for my daily commute.",
+        "rating": 5
+      },
+      {
+        "username": "dan_r",
+        "comment": "Spacious and well-designed.",
+        "rating": 4
+      }
+    ],
+    "colors": [
+      {
+        "color": "Black",
+        "sizes": [
+          { "size": "One Size", "instock": true }
+        ],
+        "images": [
+          "https://example.com/images/product9_black1.jpg",
+          "https://example.com/images/product9_black2.jpg"
+        ]
+      },
+      {
+        "color": "Gray",
+        "sizes": [
+          { "size": "One Size", "instock": true }
+        ],
+        "images": [
+          "https://example.com/images/product9_gray1.jpg",
+          "https://example.com/images/product9_gray2.jpg"
+        ]
+      }
+    ],
+    "categories": ["Bags", "Travel"],
+    "image":"/data/t-shirt.jpg"
+  },
+  {
+    "id": 10,
+    "name": "Men's Formal Shoes",
+    "sellingPrice": 99.99,
+    "markPrice": 129.99,
+    "description": "Classic formal shoes made with high-quality leather, ideal for professional settings.",
+    "hproduct": true,
+    "ratings": 4.8,
+    "reviews": [
+      {
+        "username": "will_s",
+        "comment": "Comfortable for long hours!",
+        "rating": 5
+      },
+      {
+        "username": "nina_f",
+        "comment": "Stylish and durable.",
+        "rating": 4
+      }
+    ],
+    "colors": [
+      {
+        "color": "Black",
+        "sizes": [
+          { "size": "8", "instock": true },
+          { "size": "9", "instock": true },
+          { "size": "10", "instock": false }
+        ],
+        "images": [
+          "https://example.com/images/product10_black1.jpg",
+          "https://example.com/images/product10_black2.jpg"
+        ]
+      },
+      {
+        "color": "Brown",
+        "sizes": [
+          { "size": "8", "instock": true },
+          { "size": "9", "instock": false },
+          { "size": "10", "instock": true }
+        ],
+        "images": [
+          "https://example.com/images/product10_brown1.jpg",
+          "https://example.com/images/product10_brown2.jpg"
+        ]
+      }
+    ],
+    "categories": ["Footwear", "Formal"],
+    "image":"/data/t-shirt.jpg"
+  }
+]

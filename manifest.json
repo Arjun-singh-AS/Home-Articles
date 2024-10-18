@@ -1,0 +1,10 @@
+{
+    "name": "MyApp",
+    "short_name": "App",
+    "serviceworker": {
+      "src": "/service-worker.js",
+      "scope": "/",
+      "use_cache": false
+    }
+  }
+  
