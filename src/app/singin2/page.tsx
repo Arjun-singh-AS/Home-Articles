@@ -140,7 +140,7 @@ const AuthForm = () => {
                     {loading ? 'Logging in...' : 'Login'}
                   </button>
                   <p className="mt-4 text-black">
-                    Don't have an account?{' '}
+                    Do not have an account?{' '}
                     <span onClick={toggleForm} className="cursor-pointer text-blue-400">
                       Sign Up
                     </span>

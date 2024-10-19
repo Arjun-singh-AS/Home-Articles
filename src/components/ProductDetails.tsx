@@ -2,7 +2,7 @@
 
 import { useParams } from 'next/navigation';
 import { useCart } from '../context/CartContext';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ProductRate from './ProductRate';
 import { useRouter } from 'next/navigation';
 import { useProducts } from '@/context/ProductContext';
@@ -47,23 +47,40 @@ const ProductDetail = () => {
   const [quantity, setQuantity] = useState(1);
   const { products } = useProducts();
   // Find the product by its id in the products data
+  
+
+
+  const [selectedSize, setSelectedSize] = useState<string>(''); 
+  const [selectedColor, setSelectedColor] = useState<string>(''); 
+  const [selectedImage, setSelectedImage] = useState<string>(''); 
+  const [price, setPrice] = useState<number>(0); 
+  const [sellprice, setsellprice] = useState<number>(0); 
+  const [instock, setInstock] = useState<boolean>(false); 
+  
+  const [reviewUsername, setReviewUsername] = useState<string>(''); 
+  const [reviewComment, setReviewComment] = useState<string>(''); 
+  const [reviewRating, setReviewRating] = useState<number>(1); 
+  
+  // Find the product based on the id
   const product = products.find((item) => item.id === Number(id));
+  
   if (!product) {
-    return <div className="text-center text-red-500 font-bold text-xl">Product not found.</div>;
+    return (
+      <div className="text-center text-red-500 font-bold text-xl">Product not found.</div>
+    );
   }
-
-  const [selectedSize, setSelectedSize] = useState(product.colors[0].sizes[0].size); // Default to first size of first color
-  const [selectedColor, setSelectedColor] = useState(product.colors[0].color); // Default to first color
-  const [selectedImage, setSelectedImage] = useState(product.colors[0].sizes[0].images[0]); // Default to the first image of first size of first color
-
-  const [price, setPrice] = useState(product.colors[0].sizes[0].price); // Default price for the first size of the first color
-  const [sellprice, setsellprice] = useState(product.colors[0].sizes[0].mprice)
-  const [instock, setInstock] = useState(product.colors[0].sizes[0].instock); // Default instock for the first size of the first color
-
-
-  const [reviewUsername, setReviewUsername] = useState(''); // State for review username
-  const [reviewComment, setReviewComment] = useState('');   // State for review comment
-  const [reviewRating, setReviewRating] = useState(1);      // State for review rating
+  
+  // Once the product is found, initialize the state values based on the product data
+  useEffect(() => {
+    if (product) {
+      setSelectedSize(product.colors[0].sizes[0].size);
+      setSelectedColor(product.colors[0].color);
+      setSelectedImage(product.colors[0].sizes[0].images[0]);
+      setPrice(product.colors[0].sizes[0].price);
+      setsellprice(product.colors[0].sizes[0].mprice);
+      setInstock(product.colors[0].sizes[0].instock);
+    }
+  }, [product]);
 
   const handleSizeChange = (product: Product, size: string) => {
     setSelectedSize(size);

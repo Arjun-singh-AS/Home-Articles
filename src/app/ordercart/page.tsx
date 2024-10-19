@@ -71,17 +71,7 @@ function OrderCart() {
         setSelectedPaymentMethod(method);
     };
 
-    const cartWithProductDetails = cartItems.map(cartItem => {
-        const product = products.find(p => p.id === cartItem.id);
-        return {
-          ...cartItem,
-          product, // Attach full product details
-          total: (cartItem.price || 0) * cartItem.quantity, // Calculate total for this item
-        };
-      });
     
-      // Calculate overall total
-      const overallTotal = cartWithProductDetails.reduce((total, cartItem) => total + (cartItem.total || 0), 0);
       const loadRazorpayScript = () => {
         return new Promise((resolve) => {
           const script = document.createElement('script');
@@ -150,6 +140,19 @@ function OrderCart() {
         }
     }, []);
 
+    const cartWithProductDetails = cartItems.map(cartItem => {
+      const product = products.find(p => p.id === cartItem.id);
+      return {
+        ...cartItem,
+        product, // Attach full product details
+        total: (cartItem.price || 0) * cartItem.quantity, // Calculate total for this item
+      };
+    });
+  
+    // Calculate overall total
+    const overallTotal = cartWithProductDetails.reduce((total, cartItem) => total + (cartItem.total || 0), 0);
+
+    
     const fetchUserAddresses = async (token: string) => {
         try {
             const response = await fetch('/api/addresses', {
