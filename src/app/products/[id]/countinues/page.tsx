@@ -10,6 +10,7 @@ import { useProducts } from '@/context/ProductContext';
 import jwt from 'jsonwebtoken';
 // import mongoose from 'mongoose';
 import { useUser } from '@/context/UserContext';
+import Image from 'next/image';
 
 
 type Review = {
@@ -121,7 +122,7 @@ function Countinues() {
   const [subtotal, setSubtotal] = useState(0); // Example subtotal for product
   const [shippingCost, setShippingCost] = useState(59); // Example shipping cost
   const { user} = useUser()
-
+  setShippingCost(59)
   const [markprice,setmarkprice]=useState(0);
 
   const { id } = useParams();
@@ -192,7 +193,7 @@ function Countinues() {
 
   // setSubtotal(quantity*product?.sellingPrice+shippingCost)
 
-  const [loadings, setLoadings] = useState(false);
+  // const [loadings, setLoadings] = useState(false);
 
   const handleSizeChange = (product: Product, size: string, price: number, instock: boolean) => {
     const sizeVariant = product.colors.find(colorVariant => colorVariant.color === selectedColor)
@@ -463,16 +464,17 @@ const loadRazorpayScript = () => {
           }
         } catch (error) {
           alert('Order placement failed. Please try again.');
+          console.log(error)
         }
       }
       else {
-        setLoadings(true);
+        // setLoadings(true);
 
         const scriptLoaded = await loadRazorpayScript();
 
         if (!scriptLoaded) {
           alert('Razorpay SDK failed to load. Are you online?');
-          setLoadings(false);
+          // setLoadings(false);
           return;
         }
         console.log("Razorpay APi")
@@ -502,7 +504,7 @@ const loadRazorpayScript = () => {
           console.log("order", order)
           if (!order || response.status !== 200) {
             alert('Server error. Please try again.');
-            setLoadings(false);
+            // setLoadings(false);
             return;
           }
 
@@ -569,9 +571,10 @@ const loadRazorpayScript = () => {
           paymentObject.open();
         } catch (error) {
           alert('Payment failed. Please try again.');
+          console.log(error)
         }
 
-        setLoadings(false);
+        // setLoadings(false);
 
 
       }
@@ -587,7 +590,7 @@ const loadRazorpayScript = () => {
   if (!isAuthenticated) {
     return null;
   }
-
+  isSizeInStock
   return (
     <>
       <div className="bg-black text-white min-h-screen p-4 flex flex-col items-center justify-center">
@@ -637,11 +640,13 @@ const loadRazorpayScript = () => {
           <div className="mt-10 bg-dark rounded-lg shadow-lg p-2 max-w-4xl w-full mx-4">
             <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
               <div className="w-full lg:w-1/2">
-                <img
-                  src={selectedImage}
-                  alt={product.name}
-                  className="w-[80%] h-[80%] md:w-[600px] md:h-[500px] object-cover rounded-md shadow-sm"
-                />
+              <Image
+  src={selectedImage ||""} // ensure it's a valid image source
+  alt={product.name} // ensure this is a string
+  width={600} // set fixed width for optimization
+  height={500} // set fixed height for optimization
+  className="w-[80%] h-[80%] md:w-[600px] md:h-[500px] object-cover rounded-md shadow-sm"
+/>
               </div>
 
               <div className="flex-1 w-full lg:w-1/2">

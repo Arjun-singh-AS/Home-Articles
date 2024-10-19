@@ -1,6 +1,6 @@
 'use client'
 import { useRouter, useSearchParams } from 'next/navigation';
-import React, { useEffect, useState,useRef } from 'react';
+import React, { useEffect, useState} from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { useDebounce } from 'use-debounce';
 import { usePathname } from 'next/navigation';

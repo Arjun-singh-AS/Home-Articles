@@ -57,7 +57,7 @@ function OrderCart() {
     // const [subtotal, setSubtotal] = useState(0); // Example subtotal for product
     // const [shippingCost, setShippingCost] = useState(59); // Example shipping cost
     const { user} = useUser()
-    const [loadings, setLoadings] = useState(false);
+    // const [loadings, setLoadings] = useState(false);
 
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string>('Online'); // State for selected payment method
     const [userid, setuserid] = useState<string | null>(null);
@@ -256,13 +256,13 @@ function OrderCart() {
             }
           }
           else {
-            setLoadings(true);
+            // setLoadings(true);
     
             const scriptLoaded = await loadRazorpayScript();
     
             if (!scriptLoaded) {
               alert('Razorpay SDK failed to load. Are you online?');
-              setLoadings(false);
+              // setLoadings(false);
               return;
             }
             console.log("Razorpay APi")
@@ -290,7 +290,7 @@ function OrderCart() {
               console.log("order", order)
               if (!order || response.status !== 200) {
                 alert('Server error. Please try again.');
-                setLoadings(false);
+                // setLoadings(false);
                 return;
               }
     
@@ -349,10 +349,10 @@ function OrderCart() {
               const paymentObject = new window.Razorpay(options);
               paymentObject.open();
             } catch (error) {
-              alert('Payment failed. Please try again.');
+              alert(`Payment failed. Please try again.${error}`);
             }
     
-            setLoadings(false);
+            // setLoadings(false);
     
     
           }
@@ -361,6 +361,7 @@ function OrderCart() {
         else {
           alert('Please select or add an address to proceed.')
           setErrorMessage('Please select or add an address to proceed.');
+          errorMessage
         }
       };
 

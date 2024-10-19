@@ -6,6 +6,7 @@ import { useState } from 'react';
 import ProductRate from './ProductRate';
 import { useRouter } from 'next/navigation';
 import { useProducts } from '@/context/ProductContext';
+import Image from 'next/image';
 
 type Review = {
   username: string;
@@ -16,7 +17,7 @@ type Size = {
   size: string;
   instock: boolean;
   price: number;  // Added price specific to size
-  mprice:number;
+  mprice: number;
   images: string[]; // Retained the images field in Size
 };
 type ColorVariant = {
@@ -43,8 +44,8 @@ const ProductDetail = () => {
   const router = useRouter();
 
   const { cartItems, addToCart } = useCart();
-  const [quantity, setQuantity] = useState(1);  
-  const { products} = useProducts();
+  const [quantity, setQuantity] = useState(1);
+  const { products } = useProducts();
   // Find the product by its id in the products data
   const product = products.find((item) => item.id === Number(id));
   if (!product) {
@@ -52,12 +53,12 @@ const ProductDetail = () => {
   }
 
   const [selectedSize, setSelectedSize] = useState(product.colors[0].sizes[0].size); // Default to first size of first color
-const [selectedColor, setSelectedColor] = useState(product.colors[0].color); // Default to first color
-const [selectedImage, setSelectedImage] = useState(product.colors[0].sizes[0].images[0]); // Default to the first image of first size of first color
+  const [selectedColor, setSelectedColor] = useState(product.colors[0].color); // Default to first color
+  const [selectedImage, setSelectedImage] = useState(product.colors[0].sizes[0].images[0]); // Default to the first image of first size of first color
 
-const [price, setPrice] = useState(product.colors[0].sizes[0].price); // Default price for the first size of the first color
-const [sellprice,setsellprice]=useState(product.colors[0].sizes[0].mprice)
-const [instock, setInstock] = useState(product.colors[0].sizes[0].instock); // Default instock for the first size of the first color
+  const [price, setPrice] = useState(product.colors[0].sizes[0].price); // Default price for the first size of the first color
+  const [sellprice, setsellprice] = useState(product.colors[0].sizes[0].mprice)
+  const [instock, setInstock] = useState(product.colors[0].sizes[0].instock); // Default instock for the first size of the first color
 
 
   const [reviewUsername, setReviewUsername] = useState(''); // State for review username
@@ -66,13 +67,13 @@ const [instock, setInstock] = useState(product.colors[0].sizes[0].instock); // D
 
   const handleSizeChange = (product: Product, size: string) => {
     setSelectedSize(size);
-  
+
     // Find the selected color variant
     const selectedColorVariant = product.colors.find(colorVariant => colorVariant.color === selectedColor);
-  
+
     // Find the size details for the selected size in the selected color
     const selectedSizeDetails = selectedColorVariant?.sizes.find(s => s.size === size);
-  
+
     if (selectedSizeDetails) {
       setSelectedImage(selectedSizeDetails.images[0]); // Set the first image for the selected size
       setPrice(selectedSizeDetails.price); // Set the price for the selected size
@@ -80,14 +81,14 @@ const [instock, setInstock] = useState(product.colors[0].sizes[0].instock); // D
       setsellprice(selectedSizeDetails.mprice)
     }
   };
-  
-  const handleColorChange = (colorVariant: ColorVariant, product: Product) => {
+
+  const handleColorChange = (colorVariant: ColorVariant) => {
     setSelectedColor(colorVariant.color);
     setSelectedSize(colorVariant.sizes[0].size); // Default to the first size of the new color
-  
+
     // Get the first size details for the selected color
     const firstSizeDetails = colorVariant.sizes[0];
-  
+
     if (firstSizeDetails) {
       setSelectedImage(firstSizeDetails.images[0]); // Set the first image for the first size of the selected color
       setPrice(firstSizeDetails.price); // Set the price for the first size of the selected color
@@ -111,7 +112,7 @@ const [instock, setInstock] = useState(product.colors[0].sizes[0].instock); // D
       price: price,
     };
 
-    addToCart(product, selectedColor, selectedSize, quantity,price);
+    addToCart(product, selectedColor, selectedSize, quantity, price);
 
     const updatedCart = [...cartItems, cartItem];
     localStorage.setItem('cartItems', JSON.stringify(updatedCart));
@@ -128,7 +129,7 @@ const [instock, setInstock] = useState(product.colors[0].sizes[0].instock); // D
   const selectedSizeVariant = selectedColorVariant?.sizes.find((sizeVariant) => sizeVariant.size === selectedSize);
 
   // Determine if the selected size is in stock
-  const isInStock = selectedSizeVariant ? selectedSizeVariant.instock : false;
+  // const isInStock = selectedSizeVariant ? selectedSizeVariant.instock : false;
 
   const handleReviewSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -153,11 +154,15 @@ const [instock, setInstock] = useState(product.colors[0].sizes[0].instock); // D
       <div className="mt-10 bg-dark rounded-lg shadow-lg p-2 max-w-4xl w-full mx-4">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
           <div className="w-full lg:w-1/2">
-            <img
-              src={selectedImage}
-              alt={product.name}
-              className="w-[80%] h-[80%] md:w-[600px] md:h-[500px] object-cover rounded-md shadow-sm"
-            />
+            <div className="relative w-[80%] h-[80%] md:w-[600px] md:h-[500px]">
+              <Image
+                src={selectedImage}
+                alt={product.name}
+                layout="fill" // This will fill the parent div
+                objectFit="cover" // Optional, if you want to control how the image fits in its container
+                className="rounded-md shadow-sm"
+              />
+            </div>
           </div>
 
           <div className="flex-1 w-full lg:w-1/2">
@@ -183,10 +188,9 @@ const [instock, setInstock] = useState(product.colors[0].sizes[0].instock); // D
                   {product.colors.map((colorVariant) => (
                     <button
                       key={colorVariant.color}
-                      onClick={() => handleColorChange(colorVariant, product)}
-                      className={`border border-white-400 rounded-md py-2 px-4 text-sm font-medium text-white-800 ${
-                        selectedColor === colorVariant.color ? 'bg-teal-600 text-white' : ''
-                      }`}
+                      onClick={() => handleColorChange(colorVariant)}
+                      className={`border border-white-400 rounded-md py-2 px-4 text-sm font-medium text-white-800 ${selectedColor === colorVariant.color ? 'bg-teal-600 text-white' : ''
+                        }`}
                     >
                       {colorVariant.color}
                     </button>
@@ -205,9 +209,8 @@ const [instock, setInstock] = useState(product.colors[0].sizes[0].instock); // D
                       <button
                         key={size.size}
                         onClick={() => handleSizeChange(product, size.size)}
-                        className={`border border-white-400 rounded-md py-2 px-4 text-sm font-medium text-white-800 ${
-                          selectedSize === size.size ? 'bg-teal-600 text-white' : ''
-                        }`}
+                        className={`border border-white-400 rounded-md py-2 px-4 text-sm font-medium text-white-800 ${selectedSize === size.size ? 'bg-teal-600 text-white' : ''
+                          }`}
                       >
                         {size.size}
                       </button>
@@ -244,7 +247,7 @@ const [instock, setInstock] = useState(product.colors[0].sizes[0].instock); // D
                 onClick={() => handleBuy(product)}
               >
                 <span>Buy now </span>₹ {price}
-                
+
               </button>
 
               {!isProductInCart && (

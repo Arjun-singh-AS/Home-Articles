@@ -19,7 +19,7 @@ const AuthForm = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const { setHasIdToken, user, isLoadingUser, userError }=useUser()
+  const { setHasIdToken, user}=useUser()
   
   const toggleForm = () => {
     setIsLogin((prev) => !prev);
@@ -60,7 +60,7 @@ const AuthForm = () => {
         localStorage.setItem('authToken', data.token);
         setSuccess(isLogin ? 'Logged in successfully!' : 'User registered successfully ! Now verify your email');
         const decodedToken = jwt.decode(data.token) as { id: string; email: string; phone: string};
-        
+        console.log(decodedToken)
         
         if(!isLogin){
           // Redirect to OTP check page and pass email as query parameter
@@ -81,6 +81,7 @@ const AuthForm = () => {
       }
     } catch (err) {
       setError('Something went wrong. Please try again later.');
+      console.log(err)
     } finally {
       setLoading(false);
     }

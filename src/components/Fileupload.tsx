@@ -44,7 +44,7 @@ const FileUpload: React.FC<ImagesComponentProps> = ({ images }) => {
         Upload
       </button>
 
-      {/* {imageUrl && (
+      {imageUrl && (
         <div>
           <h3>Uploaded Image:</h3>
           <img src={imageUrl} alt="Uploaded" />
@@ -56,7 +56,7 @@ const FileUpload: React.FC<ImagesComponentProps> = ({ images }) => {
           <h3>Thumbnail:</h3>
           <img src={thumbnailUrl} alt="Thumbnail" />
         </div>
-      )} */}
+      )}
     </div>
   );
 };

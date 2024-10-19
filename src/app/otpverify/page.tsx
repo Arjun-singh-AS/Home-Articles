@@ -15,7 +15,7 @@ const OTPForm: React.FC<OTPFormProps> = () => {
   const [success, setSuccess] = useState<string>('');
   const [id, setId] = useState<string | null>(null);
   const [email, setEmail] = useState<string | null>(null);
-  const [phone, setPhone] = useState<string | null>(null);
+  // const [phone, setPhone] = useState<string | null>(null);
   
   console.log("otp verify front")
 
@@ -29,12 +29,12 @@ const OTPForm: React.FC<OTPFormProps> = () => {
       return;
     }
     try {
-      const decodedToken = jwt.decode(token) as { id: string; email: string; phone: string };
+      const decodedToken = jwt.decode(token) as { id: string; email: string;};
       if (decodedToken) {
         setId(decodedToken.id);
         console.log(id)
         setEmail(decodedToken.email);
-        setPhone(decodedToken.phone);
+        // setPhone(decodedToken.phone);
       }
     } catch (error) {
       console.error('Error decoding token:', error);
