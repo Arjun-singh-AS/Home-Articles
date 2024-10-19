@@ -129,22 +129,19 @@ function Countinues() {
   const { products} = useProducts();
   const [quantity, setQuantity] = useState(1);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string>('Online'); // State for selected payment method
-  const product = products.find((item) => item.id === Number(id));
+  
   const [userid, setuserid] = useState<string | null>(null);
   const [price, setprice] = useState(0)
   const [inStack, setInStack] = useState(false)
   const hasCheckedToken = useRef(false);
 
-  if (!product) {
-    return <div className="text-center text-red-500 font-bold text-xl m-auto">Product not found.</div>;
-  }
-  const handlePaymentSelection = (method: string) => {
-    setSelectedPaymentMethod(method);
-  };
+  
 
   const [selectedColor, setSelectedColor] = useState<string | undefined>();
   const [selectedSize, setSelectedSize] = useState<string | undefined>();
   const [selectedImage, setSelectedImage] = useState<string | undefined>();
+  const product = products.find((item) => item.id === Number(id));
+  
   useEffect(() => {
     if (product && product.colors.length > 0) {
 
@@ -190,7 +187,12 @@ function Countinues() {
     }
   }, [product, selectedSize, selectedColor, quantity, shippingCost]);
 
-
+  if (!product) {
+    return <div className="text-center text-red-500 font-bold text-xl m-auto">Product not found.</div>;
+  }
+  const handlePaymentSelection = (method: string) => {
+    setSelectedPaymentMethod(method);
+  };
   // setSubtotal(quantity*product?.sellingPrice+shippingCost)
 
   // const [loadings, setLoadings] = useState(false);

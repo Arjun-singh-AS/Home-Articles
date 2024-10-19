@@ -253,6 +253,7 @@ function OrderCart() {
             }
             catch (error) {
               alert('Order Placed failed. Please try again.');
+              console.log(error)
             }
           }
           else {
@@ -361,7 +362,7 @@ function OrderCart() {
         else {
           alert('Please select or add an address to proceed.')
           setErrorMessage('Please select or add an address to proceed.');
-          errorMessage
+          console.log(errorMessage)
         }
       };
 
