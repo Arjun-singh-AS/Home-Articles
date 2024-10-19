@@ -62,13 +62,7 @@ const ProductDetail = () => {
   const [reviewRating, setReviewRating] = useState<number>(1); 
   
   // Find the product based on the id
-  const product = products.find((item) => item.id === Number(id));
   
-  if (!product) {
-    return (
-      <div className="text-center text-red-500 font-bold text-xl">Product not found.</div>
-    );
-  }
   
   // Once the product is found, initialize the state values based on the product data
   useEffect(() => {
@@ -80,7 +74,16 @@ const ProductDetail = () => {
       setsellprice(product.colors[0].sizes[0].mprice);
       setInstock(product.colors[0].sizes[0].instock);
     }
-  }, [product]);
+  }, []);
+
+  const product = products.find((item) => item.id === Number(id));
+  
+  if (!product) {
+    return (
+      <div className="text-center text-red-500 font-bold text-xl">Product not found.</div>
+    );
+  }
+
 
   const handleSizeChange = (product: Product, size: string) => {
     setSelectedSize(size);
@@ -143,7 +146,7 @@ const ProductDetail = () => {
   const selectedColorVariant = product.colors.find((colorVariant) => colorVariant.color === selectedColor);
 
   // Find the size variant within the selected color
-  const selectedSizeVariant = selectedColorVariant?.sizes.find((sizeVariant) => sizeVariant.size === selectedSize);
+  // const selectedSizeVariant = selectedColorVariant?.sizes.find((sizeVariant) => sizeVariant.size === selectedSize);
 
   // Determine if the selected size is in stock
   // const isInStock = selectedSizeVariant ? selectedSizeVariant.instock : false;

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import {  JwtPayload } from 'jsonwebtoken'; // Import JwtPayload to properly type decoded tokens
+import { JwtPayload } from 'jsonwebtoken'; // Import JwtPayload to properly type decoded tokens
 import { useParams } from 'next/navigation';
 // import { useCart } from '../../../../context/CartContext';
 import ProductRate from '../../../../components/ProductRate';
@@ -22,7 +22,7 @@ type Size = {
   size: string;
   instock: boolean;
   price: number;  // Added price specific to size
-  mprice:number;
+  mprice: number;
   images: string[]; // Retained the images field in Size
 };
 type ColorVariant = {
@@ -118,30 +118,127 @@ function Countinues() {
   const [addresses, setAddresses] = useState<string[]>([]); // State to hold user addresses
   const [selectedAddress, setSelectedAddress] = useState<string | undefined>(); // State for selected address
   const [newAddress, setNewAddress] = useState<string | undefined>(); // State for new address input
-  const [errorMessage, setErrorMessage] = useState<string | undefined>(); // State for error message
+  const [errorMessage, setErrorMessage] = useState(''); // State for error message
   const [subtotal, setSubtotal] = useState(0); // Example subtotal for product
   const [shippingCost, setShippingCost] = useState(59); // Example shipping cost
-  const { user} = useUser()
+  const { user } = useUser()
   setShippingCost(59)
-  const [markprice,setmarkprice]=useState(0);
+  const [markprice, setmarkprice] = useState(0);
 
   const { id } = useParams();
-  const { products} = useProducts();
+  const { products } = useProducts();
   const [quantity, setQuantity] = useState(1);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string>('Online'); // State for selected payment method
-  
+
   const [userid, setuserid] = useState<string | null>(null);
   const [price, setprice] = useState(0)
   const [inStack, setInStack] = useState(false)
   const hasCheckedToken = useRef(false);
 
-  
+
 
   const [selectedColor, setSelectedColor] = useState<string | undefined>();
   const [selectedSize, setSelectedSize] = useState<string | undefined>();
   const [selectedImage, setSelectedImage] = useState<string | undefined>();
   const product = products.find((item) => item.id === Number(id));
-  
+
+
+  const loadRazorpayScript = () => {
+    return new Promise((resolve) => {
+      const script = document.createElement('script');
+      script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
+      document.body.appendChild(script);
+    });
+  };
+
+  useEffect(() => {
+    if (hasCheckedToken.current) return;
+    hasCheckedToken.current = true;
+    const token = localStorage.getItem('authToken'); // Retrieve token from local storage
+    console.log('Token from localStorage:', token);
+
+    // Redirect to login if no token is found
+    if (!token) {
+      alert('Please Login to purchase')
+      console.log('No token found, redirecting to login...');
+      router.push('/singin2');
+      return;
+    }
+
+
+
+    try {
+      loadRazorpayScript();
+      // Decode the token to get the user information
+      const decodedToken = jwt.decode(token) as { id: string; email: string; phone: string };
+
+      // Check if token is valid or malformed
+      if (!decodedToken || typeof decodedToken === 'string') {
+        console.log('Invalid token, redirecting to login...');
+        alert('Token Please Login to purchase product');
+        router.push('/singin2');
+        return;
+      }
+
+      // Check if token has expired
+      const { exp } = decodedToken as JwtPayload;
+      if (exp && exp * 1000 < Date.now()) {
+        console.log('Token is expired, redirecting to login...');
+        alert('Token is expired, redirecting to login...');
+        router.push('/singin2');
+        return;
+      }
+
+      // If token is valid, set authenticated state and fetch user data
+      // setHasIdToken, user, isLoadingUser, userError
+
+      if (token && (!user || !user.isVerified)) {
+        alert("Please verify your email id by registering again.");
+        router.push('/singin2');
+        return;
+      }
+
+
+      setIsAuthenticated(true);
+
+      setuserid(decodedToken.id);
+
+      fetchUserAddresses(token); // Pass token to the address fetch function
+    } catch (error) {
+      console.error('Error decoding token:', error);
+      alert('Please login');
+      router.push('/singin2'); // Redirect on error
+    }
+  }, []);
+
+  const fetchUserAddresses = async (token: string) => {
+    try {
+      const response = await fetch('/api/addresses', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`, // Include token in Authorization header
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('User addresses:', data.user.addresses);
+
+        // Update state with user data and addresses
+        setAddresses(data.user.addresses); // Assuming setAddresses is defined in your component
+
+      } else {
+        console.error('Failed to fetch addresses:', await response.json());
+      }
+    } catch (error) {
+      console.error('Error fetching addresses:', error);
+    }
+  };
+
+
   useEffect(() => {
     if (product && product.colors.length > 0) {
 
@@ -280,108 +377,14 @@ function Countinues() {
   console.log()
   // Calculate total price
   const mprice = product ? markprice * quantity : 0;
-  
+
   const sellingprice = price * quantity;
   const totalPrice = mprice + shippingCost;
   // Effect for checking authentication and fetching addresses
 
 
 
-const loadRazorpayScript = () => {
-  return new Promise((resolve) => {
-    const script = document.createElement('script');
-    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-    script.onload = () => resolve(true);
-    script.onerror = () => resolve(false);
-    document.body.appendChild(script);
-  });
-};
-
-  useEffect(() => {
-    if (hasCheckedToken.current) return;
-    hasCheckedToken.current = true;
-    const token = localStorage.getItem('authToken'); // Retrieve token from local storage
-    console.log('Token from localStorage:', token);
-
-    // Redirect to login if no token is found
-    if (!token) {
-      alert('Please Login to purchase')
-      console.log('No token found, redirecting to login...');
-      router.push('/singin2');
-      return ;
-    }
-
-
-
-    try {
-      loadRazorpayScript();
-      // Decode the token to get the user information
-      const decodedToken = jwt.decode(token) as { id: string; email: string; phone: string };
-
-      // Check if token is valid or malformed
-      if (!decodedToken || typeof decodedToken === 'string') {
-        console.log('Invalid token, redirecting to login...');
-        alert('Token Please Login to purchase product');
-        router.push('/singin2');
-        return;
-      }
-
-      // Check if token has expired
-      const { exp } = decodedToken as JwtPayload;
-      if (exp && exp * 1000 < Date.now()) {
-        console.log('Token is expired, redirecting to login...');
-        alert('Token is expired, redirecting to login...');
-        router.push('/singin2');
-        return;
-      }
-
-      // If token is valid, set authenticated state and fetch user data
-      // setHasIdToken, user, isLoadingUser, userError
-
-      if (token && (!user || !user.isVerified)) {
-        alert("Please verify your email id by registering again.");
-        router.push('/singin2');
-        return;
-      }
-
-
-      setIsAuthenticated(true);
-
-      setuserid(decodedToken.id);
-
-      fetchUserAddresses(token); // Pass token to the address fetch function
-    } catch (error) {
-      console.error('Error decoding token:', error);
-      alert('Please login');
-      router.push('/singin2'); // Redirect on error
-    }
-  }, []);
-
-  const fetchUserAddresses = async (token: string) => {
-    try {
-      const response = await fetch('/api/addresses', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`, // Include token in Authorization header
-        },
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log('User addresses:', data.user.addresses);
-
-        // Update state with user data and addresses
-        setAddresses(data.user.addresses); // Assuming setAddresses is defined in your component
-
-      } else {
-        console.error('Failed to fetch addresses:', await response.json());
-      }
-    } catch (error) {
-      console.error('Error fetching addresses:', error);
-    }
-  };
-
+  
 
 
   // Handle adding a new address
@@ -427,7 +430,7 @@ const loadRazorpayScript = () => {
     }
 
   };
-  
+
   // Handle form submission or next step
   const handleProceed = async () => {
     setErrorMessage('')
@@ -455,9 +458,9 @@ const loadRazorpayScript = () => {
               email: user!.email
             }),
           });
-        
+
           const data = await response.json(); // Await here to resolve the promise
-        
+
           if (data.success) {
             console.log("redirected.......");
             router.push(`/success`);
@@ -637,18 +640,18 @@ const loadRazorpayScript = () => {
         {/* Error message */}
 
         {errorMessage && <p className="text-red-500 text-center">{errorMessage}</p>}
-        
+
         <div className="mt-20 flex justify-center items-center min-h-screen bg-dark-100">
           <div className="mt-10 bg-dark rounded-lg shadow-lg p-2 max-w-4xl w-full mx-4">
             <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
               <div className="w-full lg:w-1/2">
-              <Image
-  src={selectedImage ||""} // ensure it's a valid image source
-  alt={product.name} // ensure this is a string
-  width={600} // set fixed width for optimization
-  height={500} // set fixed height for optimization
-  className="w-[80%] h-[80%] md:w-[600px] md:h-[500px] object-cover rounded-md shadow-sm"
-/>
+                <Image
+                  src={selectedImage || ""} // ensure it's a valid image source
+                  alt={product.name} // ensure this is a string
+                  width={600} // set fixed width for optimization
+                  height={500} // set fixed height for optimization
+                  className="w-[80%] h-[80%] md:w-[600px] md:h-[500px] object-cover rounded-md shadow-sm"
+                />
               </div>
 
               <div className="flex-1 w-full lg:w-1/2">
