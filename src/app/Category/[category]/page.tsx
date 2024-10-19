@@ -7,9 +7,6 @@ import { useProducts } from '@/context/ProductContext';
 // In '@/model/Product.ts'
 
 import { useParams } from 'next/navigation';
-import { useCart } from '../../../context/CartContext';
-import ProductRate from '../../../components/ProductRate';
-import { useRouter } from 'next/navigation';
 export type Review = {
   username: string;
   comment: string;
@@ -20,6 +17,7 @@ export type Size = {
   size: string;
   instock: boolean;
   price: number;  // Added price specific to size
+  mprice:number;
   images: string[]; // Retained the images field in Size
 };
 
@@ -31,17 +29,16 @@ export type ColorVariant = {
 export type Product = {
   id: number;
   name: string;
-  sellingPrice: number;  // The current selling price of the product
-  markPrice: number;     // The original marked price of the product
+  sellingPrice: number;
+  markPrice: number;
   description: string;
-  hproduct: boolean;     // Indicates if the product is a hot product
-  ratings: number;       // Average rating as a number
-  reviews: Review[];     // Array of reviews for the product
-  colors: ColorVariant[]; // Array of color variants
-  categories: string[];   // Array of categories for the product
-  image: string;          // URL for the main product image
+  hproduct: boolean;
+  ratings: number;
+  reviews: Review[];
+  colors: ColorVariant[];
+  categories: string[];
+  image: string;
 };
-
 
 function Products() {
   const { products, loading, error } = useProducts(); // Fetch products with loading and error states

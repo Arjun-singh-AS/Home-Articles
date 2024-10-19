@@ -1,14 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import Razorpay from "razorpay";
 import crypto from "crypto";
 import dbConnect from "@/lib/dbConnects";
 import OrderCartModel from "@/model/ordercart";
-import mongoose from "mongoose";
 
 export async function POST(req: NextRequest) {
     try {
       const {
-                  currency,
+                  
                   paymenttype,
                   userid,
                   address,

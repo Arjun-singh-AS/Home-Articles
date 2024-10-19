@@ -125,7 +125,7 @@ export default function Checkout({ ord, user }: CheckoutProps) {
       const paymentObject = new window.Razorpay(options);
       paymentObject.open();
     } catch (error) {
-      alert('Payment failed. Please try again.');
+      alert(`Payment failed. Please try again.{error}`);
     }
 
     setLoading(false);

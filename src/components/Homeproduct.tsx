@@ -7,26 +7,26 @@ import { useCart } from '../context/CartContext';
 import Modal from './Modal'; // Import the Modal component
 import { useRouter } from 'next/navigation';
 
-type Review = {
+export type Review = {
   username: string;
   comment: string;
   rating: number;
 };
 
-type Size = {
+export type Size = {
   size: string;
   instock: boolean;
-  price: number;
+  price: number;  // Added price specific to size
   mprice:number;
-  images: string[];
+  images: string[]; // Retained the images field in Size
 };
 
-type ColorVariant = {
+export type ColorVariant = {
   color: string;
   sizes: Size[];
 };
 
-type Product = {
+export type Product = {
   id: number;
   name: string;
   sellingPrice: number;

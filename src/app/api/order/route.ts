@@ -1,5 +1,5 @@
 import dbConnect from "@/lib/dbConnects";
-import order, { OrderModel } from '@/model/order' // Ensure you import your Product model
+import{ OrderModel } from '@/model/order' // Ensure you import your Product model
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {

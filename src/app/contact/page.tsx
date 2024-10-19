@@ -5,8 +5,7 @@ import React from 'react'
 function contact() {
   return (
     <div>
-      {/* <Contact/> */}
-      <h1>this is contact</h1>
+      <Contact/>
     </div>
   )
 }
