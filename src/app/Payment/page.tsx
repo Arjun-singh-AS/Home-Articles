@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import {useRouter} from 'next/navigation';
 import { useState } from 'react';
 
+
 declare global{
   interface  Window{
     Razorpay:any;
