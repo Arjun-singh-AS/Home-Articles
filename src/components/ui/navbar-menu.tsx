@@ -4,6 +4,11 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 
+interface HoveredLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+  children: React.ReactNode;
+  href: string; // Make href required; if you want it optional, handle undefined case
+}
+
 const transition = {
   type: "spring",
   mass: 0.5,
@@ -109,11 +114,20 @@ export const ProductItem = ({
   );
 };
 
-export const HoveredLink = ({ children, ...rest }: any) => {
+// Updated HoveredLink component
+export const HoveredLink = ({
+  children,
+  href, // ensure href is defined
+  ...rest
+}: HoveredLinkProps) => {
+  // Optionally handle cases where href might not be defined
+  if (!href) return null; // Or handle as needed, e.g., throw an error or use a default link
+
   return (
     <Link
+      href={href} // Ensure href is a string and not undefined
       {...rest}
-      className="text-neutral-700 dark:text-neutral-200 hover:text-black "
+      className="text-neutral-700 dark:text-neutral-200 hover:text-black"
     >
       {children}
     </Link>

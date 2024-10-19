@@ -3,12 +3,32 @@ import { User } from '@/model/User';
 import mongoose from 'mongoose';
 import {useRouter} from 'next/navigation';
 import { useState } from 'react';
-
-
-declare global{
-  interface  Window{
-    Razorpay:any;
+declare global {
+  interface Window {
+    Razorpay: new (options: RazorpayOptions) => RazorpayInstance;
   }
+}
+
+interface RazorpayOptions {
+  key: string;
+  amount: number;
+  currency: string;
+  name: string;
+  description: string;
+  order_id: string;
+  handler: (response: RazorpayResponse) => void;
+  prefill: {
+    name: string;
+    email: string;
+    contact: string;
+  };
+  theme: {
+    color: string;
+  };
+}
+
+interface RazorpayInstance {
+  open(): void;
 }
 
 interface RazorpayResponse {
@@ -77,7 +97,7 @@ export default function Checkout({ ord, user }: CheckoutProps) {
       }
 
       const options = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || " ",
         amount: order.amount,
         currency: order.currency,
         name: 'Your Website Name',

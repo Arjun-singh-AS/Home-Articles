@@ -61,9 +61,9 @@ const Cart = () => {
           {cartWithProductDetails.map((cartItem) => (
             <li key={`${cartItem.id}-${cartItem.color}-${cartItem.size}`} className="flex items-center bg-white p-4 rounded shadow-md">
               <Image
-                src={"data/t-shirt.jpg"} // Replace with the actual image path
+                src={"/data/t-shirt.jpg"} // Replace with the actual image path
                 alt={cartItem.product?.name || ''}
-                width={30}
+                width={130}
                 height={40}
                 className="w-30 h-40 object-cover rounded"
               />
