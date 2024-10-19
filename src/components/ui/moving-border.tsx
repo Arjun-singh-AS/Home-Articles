@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 interface ButtonProps extends React.HTMLAttributes<HTMLElement> {
   borderRadius?: string;
   children: ReactNode;
-  as?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
+  as?: React.ElementType;
   containerClassName?: string;
   borderClassName?: string;
   duration?: number;

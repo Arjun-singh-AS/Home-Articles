@@ -143,7 +143,7 @@ const ProductDetail = () => {
     router.push(`/products/${productItem.id}/countinues`); // Navigate to product purchase page
   };
 
-  const selectedColorVariant = product.colors.find((colorVariant) => colorVariant.color === selectedColor);
+  // const selectedColorVariant = product.colors.find((colorVariant) => colorVariant.color === selectedColor);
 
   // Find the size variant within the selected color
   // const selectedSizeVariant = selectedColorVariant?.sizes.find((sizeVariant) => sizeVariant.size === selectedSize);
