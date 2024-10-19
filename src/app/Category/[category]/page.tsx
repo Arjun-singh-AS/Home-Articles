@@ -76,7 +76,7 @@ const res = products.filter((product) =>
       );
       setSearchResults(results);
     }
-  }, [searchParams, products]); // Re-run when search params or products change
+  }, [searchParams, products,res]); // Re-run when search params or products change
 
 
   // Determine which products to display
