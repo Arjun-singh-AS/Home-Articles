@@ -1,7 +1,7 @@
 'use client';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import jwt from 'jsonwebtoken';
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 
 interface User {
   username: string;
@@ -31,7 +31,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isLoadingUser, setIsLoadingUser] = useState(true); // Renamed loading state
   const [userError, setUserError] = useState<string | null>(null); // Renamed error state
   const [hasIdToken, setHasIdToken] = useState<string | null>(); // State to track token-related updates
-  const router = useRouter();
+  // const router = useRouter();
 
   useEffect(() => {
     const fetchUser = async () => {

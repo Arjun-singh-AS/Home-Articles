@@ -1,8 +1,8 @@
 'use client';
 import { useState } from 'react';
 import jwt from 'jsonwebtoken';
-import cookie from 'cookie';
-import { cookies } from 'next/headers';
+// import cookie from 'cookie';
+// import { cookies } from 'next/headers';
 import { useRouter } from 'next/navigation';
 import { useUser } from '@/context/UserContext';
 
@@ -56,7 +56,7 @@ const AuthForm = () => {
       console.log("token",data.token)
       
       if (response.ok) {
-
+   
         localStorage.setItem('authToken', data.token);
         setSuccess(isLogin ? 'Logged in successfully!' : 'User registered successfully ! Now verify your email');
         const decodedToken = jwt.decode(data.token) as { id: string; email: string; phone: string};

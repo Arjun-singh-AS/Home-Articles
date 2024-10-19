@@ -44,7 +44,7 @@ const ProductDetail = () => {
 
   const { cartItems, addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);  
-  const { products, loading, error } = useProducts();
+  const { products} = useProducts();
   // Find the product by its id in the products data
   const product = products.find((item) => item.id === Number(id));
   if (!product) {

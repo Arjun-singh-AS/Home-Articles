@@ -21,7 +21,7 @@ type Product = {
 
 export default function Home() {
   // Always call hooks in the same order
-  const { products, loading, error } = useProducts();
+  const { products} = useProducts();
   const searchParams = useSearchParams(); // Always call this hook
 
   // State for search results

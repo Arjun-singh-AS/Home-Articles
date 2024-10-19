@@ -43,7 +43,7 @@ export async function POST(req: Request) {
         // Verify the OTP
         console.log(otp)
         console.log(user.otp)
-        const isMatch = await bcrypt.compare(otp, user.otp);
+        // const isMatch = await bcrypt.compare(otp, user.otp);
         if (otp!=user.otp) {
             return NextResponse.json({ success: false, message: 'Invalid OTP' }, { status: 400 });
         }

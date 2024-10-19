@@ -1,5 +1,5 @@
 // models/ContactModel.ts
-import mongoose, { Schema, model, models } from 'mongoose';
+import  { Schema, model, models } from 'mongoose';
 
 // Define the schema for a contact submission
 const ContactSchema = new Schema({

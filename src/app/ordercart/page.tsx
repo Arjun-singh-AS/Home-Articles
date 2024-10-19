@@ -2,72 +2,15 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { decode, JwtPayload } from 'jsonwebtoken'; // Import JwtPayload to properly type decoded tokens
-import { useParams } from 'next/navigation';
+import { JwtPayload } from 'jsonwebtoken'; // Import JwtPayload to properly type decoded tokens
+// import { useParams } from 'next/navigation';
 import { useCart } from '../../context/CartContext';
-import ProductRate from '../../components/ProductRate';
+// import ProductRate from '../../components/ProductRate';
 import { useProducts } from '@/context/ProductContext';
 import jwt from 'jsonwebtoken';
-import mongoose from 'mongoose';
 import { useUser } from '@/context/UserContext';
+import Image from 'next/image';
 
-
-type Review = {
-    username: string;
-    comment: string;
-    rating: number;
-};
-type Size = {
-    size: string;
-    instock: boolean;
-    price: number;  // Added price specific to size
-    images: string[]; // Retained the images field in Size
-};
-type ColorVariant = {
-    color: string;
-    sizes: Size[];
-};
-
-type Product = {
-    id: number;
-    name: string;
-    sellingPrice: number;  // The current selling price of the product
-    markPrice: number;     // The original marked price of the product
-    description: string;
-    hproduct: boolean;     // Indicates if the product is a hot product
-    ratings: number;       // Average rating as a number
-    reviews: Review[];     // Array of reviews for the product
-    colors: ColorVariant[]; // Array of color variants
-    categories: string[];   // Array of categories for the product
-    image: string;          // URL for the main product image
-};
-
-interface User {
-    username: string;
-    email: string;
-    password: string;
-    phone: string;
-    createdAt: Date;
-    addresses: string[];
-    isVerified: boolean; // Optional verification status
-    otp: string;         // Optional OTP
-    otpExpires: Date;    // Optional OTP expiration date
-}
-
-interface Order {
-    orderId: string;         // Unique identifier for the order
-    productId: mongoose.Schema.Types.ObjectId; // Reference to the Product model
-    userId: mongoose.Schema.Types.ObjectId;    // Reference to the User model
-    quantity: number;        // Quantity of the product ordered
-    address: string;         // Shipping address
-    size: string;            // Size of the product
-    color: string;           // Color of the product
-    status: string;          // Status of the order (Pending, Shipped, Delivered, Cancelled)
-    createdAt: Date;         // Date of order creation
-    amount: number;          // Total amount for the order
-    paymentMethod: string;   // Payment method: 'COD' or 'Online'
-    image:string;
-}
 
 declare global {
     interface Window {
@@ -89,15 +32,15 @@ function OrderCart() {
     const [newAddress, setNewAddress] = useState<string | undefined>(); // State for new address input
 
     const [errorMessage, setErrorMessage] = useState<string | undefined>(); // State for error message
-    const [subtotal, setSubtotal] = useState(0); // Example subtotal for product
-    const [shippingCost, setShippingCost] = useState(59); // Example shipping cost
-    const { user, isLoadingUser, userError } = useUser()
+    // const [subtotal, setSubtotal] = useState(0); // Example subtotal for product
+    // const [shippingCost, setShippingCost] = useState(59); // Example shipping cost
+    const { user} = useUser()
     const [loadings, setLoadings] = useState(false);
 
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string>('Online'); // State for selected payment method
     const [userid, setuserid] = useState<string | null>(null);
-    const [price, setprice] = useState(0)
-    const [inStack, setInStack] = useState(false)
+    // const [price, setprice] = useState(0)
+    // const [inStack, setInStack] = useState(false)
     const hasCheckedToken = useRef(false);
     const { cartItems, updateQuantity, removeFromCart } = useCart();
     const { products } = useProducts();
@@ -457,11 +400,13 @@ function OrderCart() {
         <ul className="space-y-4">
           {cartWithProductDetails.map((cartItem) => (
             <li key={`${cartItem.id}-${cartItem.color}-${cartItem.size}`} className="flex items-center bg-white p-4 rounded shadow-md">
-              <img
-                src={"data/t-shirt.jpg"} // Replace with the actual image path
-                alt={cartItem.product?.name}
-                className="w-30 h-40 object-cover rounded"
-              />
+              <Image
+  src="/images/t-shirt.jpg" // Correct path from the public directory
+  alt={cartItem.product?.name || "T-shirt"}
+  width={30}
+  height={40}
+  className="w-30 h-40 object-cover rounded"
+/>
               <div className="flex-1 ml-4">
                 <h3 className="text-lg font-semibold text-gray-800">{cartItem.product?.name}</h3>
                 <p className="text-sm text-gray-800">Color: {cartItem.color}</p>

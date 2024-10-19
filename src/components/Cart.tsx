@@ -4,6 +4,7 @@ import { useCart } from '@/context/CartContext'; // Ensure the import path is co
 import { useProducts } from '@/context/ProductContext'; // Ensure the import path is correct
 import { useRouter } from 'next/navigation';
 import { useUser } from '@/context/UserContext';
+import Image from 'next/image';
 
 const Cart = () => {
   const { products } = useProducts(); // Accessing all products
@@ -23,7 +24,7 @@ const Cart = () => {
   const overallTotal = cartWithProductDetails.reduce((total, cartItem) => total + (cartItem.total || 0), 0);
 
   const router = useRouter();
-  const {setHasIdToken, user, isLoadingUser, userError } = useUser()
+  const {setHasIdToken, user} = useUser()
 
   const handleBuy = () => {
     const token = localStorage.getItem('authToken');
@@ -59,9 +60,11 @@ const Cart = () => {
         <ul className="space-y-4">
           {cartWithProductDetails.map((cartItem) => (
             <li key={`${cartItem.id}-${cartItem.color}-${cartItem.size}`} className="flex items-center bg-white p-4 rounded shadow-md">
-              <img
+              <Image
                 src={"data/t-shirt.jpg"} // Replace with the actual image path
-                alt={cartItem.product?.name}
+                alt={cartItem.product?.name || ''}
+                width={30}
+                height={40}
                 className="w-30 h-40 object-cover rounded"
               />
               <div className="flex-1 ml-4">

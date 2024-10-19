@@ -5,38 +5,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import { useDebounce } from 'use-debounce';
 import { usePathname } from 'next/navigation';
 
-type Review = {
-  username: string;
-  comment: string;
-  rating: number;
-};
 
-type Size = {
-  size: string;
-  instock: boolean;
-  price: number;  // Added price specific to size
-  mprice:number;
-  images: string[]; // Retained the images field in Size
-};
-
-type ColorVariant = {
-  color: string;
-  sizes: Size[];
-};
-
-type Product = {
-  id: number;
-  name: string;
-  sellingPrice: number;  // The current selling price of the product
-  markPrice: number;     // The original marked price of the product
-  description: string;
-  hproduct: boolean;     // Indicates if the product is a hot product
-  ratings: number;       // Average rating as a number
-  reviews: Review[];     // Array of reviews for the product
-  colors: ColorVariant[]; // Array of color variants
-  categories: string[];   // Array of categories for the product
-  image: string;        
-};
 
 function SearchBar() {
   const router = useRouter();
@@ -44,7 +13,6 @@ function SearchBar() {
   const searchParams = useSearchParams();
     const [searchTerm, setSearchTerm] = useState<string>('');
     const [query] = useDebounce(searchTerm, 500);
-    const inputRef = useRef<HTMLInputElement | null>(null);
 
     useEffect(()=>{
       const fullRoute = `${pathname}?${searchParams.toString()}`;

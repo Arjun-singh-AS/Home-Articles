@@ -7,14 +7,13 @@ import OrderModel from "@/model/order";
 
 
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
 
   const {
     razorpay_order_id,
     razorpay_payment_id,
     razorpay_signature,
     amount,
-    currency,
     quantity,
     productId,
     paymenttype,

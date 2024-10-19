@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Razorpay from 'razorpay';
 import dbConnect from '@/lib/dbConnects';
-import mongoose from 'mongoose';
 
 
 

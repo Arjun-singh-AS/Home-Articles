@@ -2,13 +2,13 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { decode, JwtPayload } from 'jsonwebtoken'; // Import JwtPayload to properly type decoded tokens
+import {  JwtPayload } from 'jsonwebtoken'; // Import JwtPayload to properly type decoded tokens
 import { useParams } from 'next/navigation';
-import { useCart } from '../../../../context/CartContext';
+// import { useCart } from '../../../../context/CartContext';
 import ProductRate from '../../../../components/ProductRate';
 import { useProducts } from '@/context/ProductContext';
 import jwt from 'jsonwebtoken';
-import mongoose from 'mongoose';
+// import mongoose from 'mongoose';
 import { useUser } from '@/context/UserContext';
 
 
@@ -43,32 +43,32 @@ type Product = {
   image: string;          // URL for the main product image
 };
 
-interface User {
-  username: string;
-  email: string;
-  password: string;
-  phone: string;
-  createdAt: Date;
-  addresses: string[];
-  isVerified: boolean; // Optional verification status
-  otp: string;         // Optional OTP
-  otpExpires: Date;    // Optional OTP expiration date
-}
+// interface User {
+//   username: string;
+//   email: string;
+//   password: string;
+//   phone: string;
+//   createdAt: Date;
+//   addresses: string[];
+//   isVerified: boolean; // Optional verification status
+//   otp: string;         // Optional OTP
+//   otpExpires: Date;    // Optional OTP expiration date
+// }
 
-interface Order {
-  orderId: string;         // Unique identifier for the order
-  productId: mongoose.Schema.Types.ObjectId; // Reference to the Product model
-  userId: mongoose.Schema.Types.ObjectId;    // Reference to the User model
-  quantity: number;        // Quantity of the product ordered
-  address: string;         // Shipping address
-  size: string;            // Size of the product
-  color: string;           // Color of the product
-  status: string;          // Status of the order (Pending, Shipped, Delivered, Cancelled)
-  createdAt: Date;         // Date of order creation
-  amount: number;          // Total amount for the order
-  paymentMethod: string;   // Payment method: 'COD' or 'Online'
-  image:string;
-}
+// interface Order {
+//   orderId: string;         // Unique identifier for the order
+//   productId: mongoose.Schema.Types.ObjectId; // Reference to the Product model
+//   userId: mongoose.Schema.Types.ObjectId;    // Reference to the User model
+//   quantity: number;        // Quantity of the product ordered
+//   address: string;         // Shipping address
+//   size: string;            // Size of the product
+//   color: string;           // Color of the product
+//   status: string;          // Status of the order (Pending, Shipped, Delivered, Cancelled)
+//   createdAt: Date;         // Date of order creation
+//   amount: number;          // Total amount for the order
+//   paymentMethod: string;   // Payment method: 'COD' or 'Online'
+//   image:string;
+// }
 
 declare global {
   interface Window {
@@ -91,12 +91,12 @@ function Countinues() {
   const [errorMessage, setErrorMessage] = useState<string | undefined>(); // State for error message
   const [subtotal, setSubtotal] = useState(0); // Example subtotal for product
   const [shippingCost, setShippingCost] = useState(59); // Example shipping cost
-  const { user, isLoadingUser, userError } = useUser()
+  const { user} = useUser()
 
   const [markprice,setmarkprice]=useState(0);
 
   const { id } = useParams();
-  const { products, loading, error } = useProducts();
+  const { products} = useProducts();
   const [quantity, setQuantity] = useState(1);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string>('Online'); // State for selected payment method
   const product = products.find((item) => item.id === Number(id));

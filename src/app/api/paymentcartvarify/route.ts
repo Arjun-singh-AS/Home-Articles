@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import Razorpay from "razorpay";
+
 // import shortid from "shortid";
 import crypto from "crypto";
 import dbConnect from "@/lib/dbConnects";
@@ -7,13 +7,12 @@ import OrderCartModel from "@/model/ordercart";
 
 
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
 
   const {
     razorpay_order_id,
     razorpay_payment_id,
     razorpay_signature,
-    currency,
     paymenttype,
     userid,
     address,
@@ -81,12 +80,5 @@ export async function POST(req: NextRequest, res: NextResponse) {
     })
 
   }
-
-
-return NextResponse.json({
-    message: "success"
-  }, {
-    status: 200,
-  })
 
 }

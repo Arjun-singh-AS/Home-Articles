@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import FileUpload from './Fileupload';
-import { useEdgeStore } from '@/lib/edgestore';
+import Image from 'next/image';
+// import FileUpload from './Fileupload';
+// import { useEdgeStore } from '@/lib/edgestore';
 const Banner = () => {
-  let images = [
+  const images = [
     '/banner/1.jfif',
     '/banner/2.jfif',
     '/banner/3.jfif',
@@ -59,9 +60,12 @@ const Banner = () => {
 
         <div key={index} className="flex-shrink-0 w-full snap-center">
           <Link href={`product/${cl[index]}`}>
-          <img
+          <Image
             src={image}
             alt={`Banner Image ${index + 1}`}
+            layout="responsive"
+            width={1920} // Specify a ratio
+            height={1080}
             className="w-full h-full object-cover"
           />
           </Link>

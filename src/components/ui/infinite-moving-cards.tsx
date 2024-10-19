@@ -3,6 +3,7 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import Image from 'next/image';
 
 export const InfiniteMovingCards = ({
   items,
@@ -70,7 +71,7 @@ export const InfiniteMovingCards = ({
       }
     }
   };
-  let category=['shirt','pant','leather','light','l']
+   const category=['shirt','pant','leather','light','l']
   return (
     <div
       ref={containerRef}
@@ -102,11 +103,10 @@ export const InfiniteMovingCards = ({
                 aria-hidden="true"
                 className="user-select-none -z-1 pointer-events-none absolute -left-0.5 -top-0.5 h-[calc(100%_+_4px)] w-[calc(100%_+_4px)]"
               ></div>
-              <img
-                    src={`/data/t-shirt.jpg`}
+              <Image                    src={`/data/t-shirt.jpg`}
                     alt="jordans"
-                    height="400"
-                    width="400"
+                    height={400}
+                    width={400}
                     className="object-contain"
                   />
               <span className=" relative z-20 text-sm leading-[1.6] text-gray-100 font-normal">

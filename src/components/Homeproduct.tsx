@@ -6,6 +6,7 @@ import ProductRate from './ProductRate';
 import { useCart } from '../context/CartContext';
 import Modal from './Modal'; // Import the Modal component
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 export type Review = {
   username: string;
@@ -123,7 +124,7 @@ const Homeproduct: React.FC<HomeProductProps> = ({ value }) => {
           <div key={productItem.id} className="flex justify-center">
             <BackgroundGradient className="flex flex-col rounded-[22px] bg-white dark:bg-zinc-900 overflow-hidden h-full w-full max-w-xs shadow-lg transition-transform transform hover:scale-105">
               <Link href={`/products/${productItem.id}`}>
-                <img
+                <Image
                   src={`data/t-shirt.jpg`}
                   alt={productItem.name}
                   className="object-contain h-32 sm:h-48 w-full"

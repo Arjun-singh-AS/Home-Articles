@@ -1,6 +1,7 @@
 'use client';
 import { useUser } from '@/context/UserContext';
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 type Order = {
   orderId: string;
@@ -85,7 +86,7 @@ function Order() {
               </div>
             ) : (
               <>
-                <img
+                <Image
                   src={singleOrder.image || 'data/t-shirt.jpg'}
                   alt={`Product Image for ${singleOrder.productId}`}
                   className="w-30 h-40 object-cover"

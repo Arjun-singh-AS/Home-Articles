@@ -2,7 +2,6 @@
 import React, { useState, useEffect, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import jwt from 'jsonwebtoken';
-import { useUser } from '@/context/UserContext';
 
 interface OTPFormProps {
   email: string;
@@ -67,7 +66,7 @@ const OTPForm: React.FC<OTPFormProps> = () => {
         setError('OTP verification failed! Please try again.');
       }
     } catch (err) {
-      setError('An error occurred while verifying OTP.');
+      setError(`An error occurred while verifying OTP.${err}`);
     } finally {
       setLoading(false);
     }
