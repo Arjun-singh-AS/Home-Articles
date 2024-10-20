@@ -595,7 +595,7 @@ function Countinues() {
   if (!isAuthenticated) {
     return null;
   }
-  isSizeInStock
+  console.log(isSizeInStock)
   return (
     <>
       <div className="bg-black text-white min-h-screen p-4 flex flex-col items-center justify-center">

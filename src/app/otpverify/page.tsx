@@ -3,11 +3,7 @@ import React, { useState, useEffect, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import jwt from 'jsonwebtoken';
 
-interface OTPFormProps {
-  email: string;
-}
-
-const OTPForm: React.FC<OTPFormProps> = () => {
+const OTPForm: React.FC = () => {
   const router = useRouter();
   const [otp, setOtp] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
@@ -15,26 +11,23 @@ const OTPForm: React.FC<OTPFormProps> = () => {
   const [success, setSuccess] = useState<string>('');
   const [id, setId] = useState<string | null>(null);
   const [email, setEmail] = useState<string | null>(null);
-  // const [phone, setPhone] = useState<string | null>(null);
-  
-  console.log("otp verify front")
+
+  console.log("otp verify front");
 
   useEffect(() => {
-    // Retrieve and decode the token when the component mounts
     const token = localStorage.getItem('authToken');
-    console.log("otp verify front token",token)
+    console.log("otp verify front token", token);
     if (!token) {
       console.log('No token found, redirecting to login...');
       router.push('/signin2');
       return;
     }
+
     try {
-      const decodedToken = jwt.decode(token) as { id: string; email: string;};
+      const decodedToken = jwt.decode(token) as { id: string; email: string };
       if (decodedToken) {
         setId(decodedToken.id);
-        console.log(id)
         setEmail(decodedToken.email);
-        // setPhone(decodedToken.phone);
       }
     } catch (error) {
       console.error('Error decoding token:', error);
@@ -47,26 +40,27 @@ const OTPForm: React.FC<OTPFormProps> = () => {
     setLoading(true);
     setError('');
     setSuccess('');
-    console.log("this is hadle of otp front")
+    console.log("this is handle of otp front");
+    
     try {
       const response = await fetch('/api/otpverify', {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id, otp }),
       });
 
       const result = await response.json();
-      console.log(result)
+      console.log(result);
 
       if (result.success) {
         setSuccess('OTP verified successfully!');
-        alert('OTP verified successfully!')
-        router.push('/')
+        alert('OTP verified successfully!');
+        router.push('/');
       } else {
         setError('OTP verification failed! Please try again.');
       }
     } catch (err) {
-      setError(`An error occurred while verifying OTP.${err}`);
+      setError(`An error occurred while verifying OTP. ${err}`);
     } finally {
       setLoading(false);
     }
