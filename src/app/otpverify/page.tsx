@@ -3,6 +3,8 @@ import React, { useState, useEffect, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import jwt from 'jsonwebtoken';
 
+export const dynamic = 'force-dynamic';
+
 const OTPForm: React.FC = () => {
   const router = useRouter();
   const [otp, setOtp] = useState<string>('');

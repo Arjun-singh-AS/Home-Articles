@@ -2,7 +2,7 @@
 import { useSearchParams } from 'next/navigation';
 // import { CheckCircleIcon } from '@heroicons/react/solid';
 import { AiOutlineCheckCircle } from 'react-icons/ai';
-
+export const dynamic = 'force-dynamic';
 
 const SuccessPage = () => {
   const searchParams = useSearchParams();

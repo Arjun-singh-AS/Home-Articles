@@ -52,7 +52,7 @@ const ProductDetail = () => {
 
   const [selectedSize, setSelectedSize] = useState<string>(''); 
   const [selectedColor, setSelectedColor] = useState<string>(''); 
-  const [selectedImage, setSelectedImage] = useState<string>(''); 
+  // const [selectedImage, setSelectedImage] = useState<string>(''); 
   const [price, setPrice] = useState<number>(0); 
   const [sellprice, setsellprice] = useState<number>(0); 
   const [instock, setInstock] = useState<boolean>(false); 
@@ -69,7 +69,7 @@ const ProductDetail = () => {
     if (product) {
       setSelectedSize(product.colors[0].sizes[0].size);
       setSelectedColor(product.colors[0].color);
-      setSelectedImage(product.colors[0].sizes[0].images[0]);
+      // setSelectedImage(product.colors[0].sizes[0].images[0]);
       setPrice(product.colors[0].sizes[0].price);
       setsellprice(product.colors[0].sizes[0].mprice);
       setInstock(product.colors[0].sizes[0].instock);
@@ -95,7 +95,7 @@ const ProductDetail = () => {
     const selectedSizeDetails = selectedColorVariant?.sizes.find(s => s.size === size);
 
     if (selectedSizeDetails) {
-      setSelectedImage(selectedSizeDetails.images[0]); // Set the first image for the selected size
+      // setSelectedImage(selectedSizeDetails.images[0]); // Set the first image for the selected size
       setPrice(selectedSizeDetails.price); // Set the price for the selected size
       setInstock(selectedSizeDetails.instock); // Set the instock status for the selected size
       setsellprice(selectedSizeDetails.mprice)
@@ -110,7 +110,7 @@ const ProductDetail = () => {
     const firstSizeDetails = colorVariant.sizes[0];
 
     if (firstSizeDetails) {
-      setSelectedImage(firstSizeDetails.images[0]); // Set the first image for the first size of the selected color
+      // setSelectedImage(firstSizeDetails.images[0]); // Set the first image for the first size of the selected color
       setPrice(firstSizeDetails.price); // Set the price for the first size of the selected color
       setInstock(firstSizeDetails.instock); // Set the instock status for the first size of the selected color
     }
@@ -176,9 +176,12 @@ const ProductDetail = () => {
           <div className="w-full lg:w-1/2">
             <div className="relative w-[80%] h-[80%] md:w-[600px] md:h-[500px]">
               <Image
-                src={selectedImage}
+                // src={selectedImage}
+                src={'/data/t-shirt.jpg'}
                 alt={product.name}
-                layout="fill" // This will fill the parent div
+                // layout="fill" // This will fill the parent div
+                width={600} // set cd width for optimization
+                height={500} // set fixed height for optimization
                 objectFit="cover" // Optional, if you want to control how the image fits in its container
                 className="rounded-md shadow-sm"
               />

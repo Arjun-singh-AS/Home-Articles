@@ -11,6 +11,7 @@ import jwt from 'jsonwebtoken';
 import { useUser } from '@/context/UserContext';
 import Image from 'next/image';
 
+export const dynamic = 'force-dynamic';
 
 declare global {
   interface Window {

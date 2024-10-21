@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useProducts } from '@/context/ProductContext';
 
+export const dynamic = 'force-dynamic';
+
 type Review = {
   username: string;
   comment: string;

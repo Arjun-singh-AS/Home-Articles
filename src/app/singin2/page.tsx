@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 // import { cookies } from 'next/headers';
 import { useRouter } from 'next/navigation';
 import { useUser } from '@/context/UserContext';
-
+export const dynamic = 'force-dynamic';
 
 const AuthForm = () => {
   const route=useRouter()

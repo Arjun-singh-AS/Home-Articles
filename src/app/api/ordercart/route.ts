@@ -2,6 +2,8 @@ import dbConnect from "@/lib/dbConnects";
 import {OrderCartModel} from '@/model/ordercart' // Ensure you import your Product model
 import { NextRequest, NextResponse } from 'next/server';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(req: NextRequest) {
     await dbConnect();  
 

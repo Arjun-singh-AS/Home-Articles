@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-// import FileUpload from './Fileupload';
-// import { useEdgeStore } from '@/lib/edgestore';
 const Banner = () => {
   const images = [
     '/banner/1.jfif',

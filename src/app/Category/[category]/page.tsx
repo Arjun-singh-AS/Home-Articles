@@ -7,6 +7,9 @@ import { useProducts } from '@/context/ProductContext';
 // In '@/model/Product.ts'
 
 import { useParams } from 'next/navigation';
+
+export const dynamic = 'force-dynamic';
+
 export type Review = {
   username: string;
   comment: string;

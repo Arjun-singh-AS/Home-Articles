@@ -3,6 +3,8 @@ import { useUser } from '@/context/UserContext';
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 
+export const dynamic = 'force-dynamic';
+
 type Order = {
   orderId: string;
   paymentId: string;

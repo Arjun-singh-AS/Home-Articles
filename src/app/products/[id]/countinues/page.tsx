@@ -12,6 +12,7 @@ import jwt from 'jsonwebtoken';
 import { useUser } from '@/context/UserContext';
 import Image from 'next/image';
 
+export const dynamic = 'force-dynamic';
 
 type Review = {
   username: string;
@@ -139,7 +140,7 @@ function Countinues() {
 
   const [selectedColor, setSelectedColor] = useState<string | undefined>();
   const [selectedSize, setSelectedSize] = useState<string | undefined>();
-  const [selectedImage, setSelectedImage] = useState<string | undefined>();
+  // const [selectedImage, setSelectedImage] = useState<string | undefined>();
   const product = products.find((item) => item.id === Number(id));
 
 
@@ -272,7 +273,8 @@ function Countinues() {
 
           setSelectedColor(firstColor.color); // Default to first color
           setSelectedSize(firstSize ? firstSize.size : ''); // Default to first size if available
-          setSelectedImage(firstSize.images && firstSize.images.length > 0 ? firstSize.images[0] : ''); // Set the default image from the first size if available
+
+          // setSelectedImage(firstSize.images && firstSize.images.length > 0 ? firstSize.images[0] : ''); // Set the default image from the first size if available
           setprice(firstSize.price); // Set the price for the selected size
           setInStack(firstSize.instock); // Set instock status for the selected size
           setmarkprice(selectedSizeVariant?.mprice || 0);
@@ -300,7 +302,7 @@ function Countinues() {
 
     if (sizeVariant) {
       setSelectedSize(size);
-      setSelectedImage(sizeVariant.images[0]); // Set first image for selected size
+      // setSelectedImage(sizeVariant.images[0]); // Set first image for selected size
       setprice(price)
       setInStack(instock)
       setmarkprice(sizeVariant.mprice)
@@ -323,7 +325,7 @@ function Countinues() {
       setSelectedSize(colorVariant.sizes[0].size);
 
       // Set the first image from the first size's images
-      setSelectedImage(colorVariant.sizes[0].images[0]);
+      // setSelectedImage(colorVariant.sizes[0].images[0]);
 
       setInStack(colorVariant.sizes[0].instock)
 
@@ -451,7 +453,8 @@ function Countinues() {
               paymenttype: selectedPaymentMethod,
               size: selectedSize,
               color: selectedColor,
-              image: selectedImage,
+              // image: selectedImage,
+              image:'/data/t-shirt.jpg',
               userid: userid,
               address: selectedAddress,
               username: user!.username,
@@ -497,7 +500,8 @@ function Countinues() {
               paymenttype: selectedPaymentMethod,
               size: selectedSize,
               color: selectedColor,
-              image: selectedImage,
+              // image: selectedImage,
+              image:'/data/t-shirt.jpg',
               userid: userid,
               address: selectedAddress,
               username: user!.username,
@@ -540,7 +544,8 @@ function Countinues() {
                     paymenttype: selectedPaymentMethod,
                     size: selectedSize,
                     color: selectedColor,
-                    image: selectedImage,
+                    // image: selectedImage,
+                    image:'/data/t-shirt.jpg',
                     userid: userid,
                     address: selectedAddress,
                     username: user!.username,
@@ -646,11 +651,12 @@ function Countinues() {
             <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
               <div className="w-full lg:w-1/2">
                 <Image
-                  src={selectedImage || ""} // ensure it's a valid image source
+                  // src={selectedImage || ""} // ensure it's a valid image source
+                  src={'/data/t-shirt.jpg'}
                   alt={product.name} // ensure this is a string
                   width={600} // set fixed width for optimization
                   height={500} // set fixed height for optimization
-                  className="w-[80%] h-[80%] md:w-[600px] md:h-[500px] object-cover rounded-md shadow-sm"
+                  // className="w-[80%] h-[80%] md:w-[600px] md:h-[500px] object-cover rounded-md shadow-sm"
                 />
               </div>
 
