@@ -59,7 +59,8 @@ const Banner = () => {
         <div key={index} className="flex-shrink-0 w-full snap-center">
           <Link href={`product/${cl[index]}`}>
           <Image
-            src={image}
+            // src={image}
+            src={`/banner/${index+1}.jfif`}
             alt={`Banner Image ${index + 1}`}
             layout="responsive"
             width={1920} // Specify a ratio
