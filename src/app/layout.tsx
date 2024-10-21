@@ -7,7 +7,7 @@ import CartIconSection from '@/components/CartIconSection'
 import Footer from '@/components/Footer'
 import SearchBar from '../components/SearchBar';
 import { ProductProvider } from '@/context/ProductContext';
-import { EdgeStoreProvider } from "@/lib/edgestore";
+// import { EdgeStoreProvider } from "@/lib/edgestore";
 import { UserProvider } from "@/context/UserContext";
 
 export const dynamic = 'force-dynamic';
@@ -24,7 +24,7 @@ export default function RootLayout({
         // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <UserProvider>
-        <EdgeStoreProvider>
+        {/* <EdgeStoreProvide/> */}
         <ProductProvider>
         <CartContextProvider>
         <div className="relative w-full flex item-center justify-center">
@@ -45,7 +45,7 @@ export default function RootLayout({
         <Footer/>
         </CartContextProvider>
         </ProductProvider> 
-        </EdgeStoreProvider>
+        {/* </EdgeStoreProvider> */}
         </UserProvider>
         
       </body>
