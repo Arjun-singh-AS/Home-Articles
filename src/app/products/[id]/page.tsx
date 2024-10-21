@@ -1,5 +1,6 @@
 import ProductDetail from '@/components/ProductDetails'
 
+
 function productpage() {
   return (
     <div>

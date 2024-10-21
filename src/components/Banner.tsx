@@ -3,10 +3,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 const Banner = () => {
   const images = [
-    '/banner/1.jfif',
-    '/banner/2.jfif',
-    '/banner/3.jfif',
-    '/banner/4.jfif',
+    '/data/t-shirt.jpg',
+    '/data/t-shirt.jpg',
+    '/data/t-shirt.jpg',
+    '/data/t-shirt.jpg',
   ];
   const cl=['cat1','cat2','cat3','cat4']
   const bannerRef = useRef<HTMLDivElement | null>(null);
@@ -39,7 +39,7 @@ const Banner = () => {
         setTimeout(() => {
           banner.scrollTo({ left: 0, behavior: 'auto' }); // Instantly reset to start
           setCurrentIndex(0); // Reset index to 0
-        }, 500); // Delay to allow smooth scrolling of the last image
+        }, 1000); // Delay to allow smooth scrolling of the last image
       }
     }
     // console.log(images)
@@ -59,8 +59,7 @@ const Banner = () => {
         <div key={index} className="flex-shrink-0 w-full snap-center">
           <Link href={`product/${cl[index]}`}>
           <Image
-            // src={image}
-            src={`/banner/${index+1}.jfif`}
+            src={image}
             alt={`Banner Image ${index + 1}`}
             layout="responsive"
             width={1920} // Specify a ratio

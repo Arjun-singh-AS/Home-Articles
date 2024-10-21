@@ -180,8 +180,8 @@ const ProductDetail = () => {
                 src={'/data/t-shirt.jpg'}
                 alt={product.name}
                 // layout="fill" // This will fill the parent div
-                width={600} // set cd width for optimization
-                height={500} // set fixed height for optimization
+                width={450} // set cd width for optimization
+                height={600} // set fixed height for optimization
                 objectFit="cover" // Optional, if you want to control how the image fits in its container
                 className="rounded-md shadow-sm"
               />

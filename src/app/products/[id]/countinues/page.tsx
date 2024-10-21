@@ -123,7 +123,6 @@ function Countinues() {
   const [subtotal, setSubtotal] = useState(0); // Example subtotal for product
   const [shippingCost, setShippingCost] = useState(59); // Example shipping cost
   const { user } = useUser()
-  setShippingCost(59)
   const [markprice, setmarkprice] = useState(0);
 
   const { id } = useParams();
@@ -240,51 +239,6 @@ function Countinues() {
   };
 
 
-  useEffect(() => {
-    if (product && product.colors.length > 0) {
-
-
-      // Calculate subtotal based on the selected size's price
-      if (selectedSize && selectedColor) {
-        const selectedColorVariant = product.colors.find((colorVariant) => colorVariant.color === selectedColor);
-        const selectedSizeVariant = selectedColorVariant?.sizes.find((sizeVariant) => sizeVariant.size === selectedSize);
-        const selectedPrice = selectedSizeVariant ? selectedSizeVariant.price : product.sellingPrice;
-        setmarkprice(selectedSizeVariant?.mprice || 0);
-        setprice(selectedSizeVariant!.price)
-
-
-        setSubtotal(quantity * selectedPrice + shippingCost);
-      }
-      else if (selectedColor) {
-        const selectedColorVariant = product.colors.find((colorVariant) => colorVariant.color === selectedColor);
-        setSelectedSize(selectedColorVariant?.sizes[0].size)
-        const selectedSizeVariant = selectedColorVariant?.sizes.find((sizeVariant) => sizeVariant.size === selectedSize);
-        const selectedPrice = selectedSizeVariant ? selectedSizeVariant.price : product.sellingPrice;
-        setmarkprice(selectedSizeVariant?.mprice || 0);
-        setprice(selectedSizeVariant!.price)
-
-        setSubtotal(quantity * selectedPrice + shippingCost);
-      }
-      else {
-        const firstColor = product.colors[0];
-
-        if (firstColor.sizes.length > 0) {
-          const firstSize = firstColor.sizes[0];
-
-          setSelectedColor(firstColor.color); // Default to first color
-          setSelectedSize(firstSize ? firstSize.size : ''); // Default to first size if available
-
-          // setSelectedImage(firstSize.images && firstSize.images.length > 0 ? firstSize.images[0] : ''); // Set the default image from the first size if available
-          setprice(firstSize.price); // Set the price for the selected size
-          setInStack(firstSize.instock); // Set instock status for the selected size
-          setmarkprice(selectedSizeVariant?.mprice || 0);
-          setSubtotal(quantity * price + shippingCost);
-
-        }
-      }
-
-    }
-  }, [product, selectedSize, selectedColor, quantity, shippingCost]);
 
   if (!product) {
     return <div className="text-center text-red-500 font-bold text-xl m-auto">Product not found.</div>;
@@ -654,8 +608,8 @@ function Countinues() {
                   // src={selectedImage || ""} // ensure it's a valid image source
                   src={'/data/t-shirt.jpg'}
                   alt={product.name} // ensure this is a string
-                  width={600} // set fixed width for optimization
-                  height={500} // set fixed height for optimization
+                  width={450} // set cd width for optimization
+                height={600} // set fixed height for optimization
                   // className="w-[80%] h-[80%] md:w-[600px] md:h-[500px] object-cover rounded-md shadow-sm"
                 />
               </div>
