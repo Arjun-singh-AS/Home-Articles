@@ -49,7 +49,7 @@ const Banner = () => {
     <>
       <div
         ref={bannerRef}
-        className="flex overflow-hidden snap-x snap-mandatory h-auto sm:h-screen mt-20" // Responsive height
+        className="flex overflow-hidden snap-x snap-mandatory h-auto sm:h-screen mt-20 pt-3" // Responsive height
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }} // Hide scrollbar
         onMouseEnter={() => setIsHovered(true)} // Stop rotation when hovered
         onMouseLeave={() => setIsHovered(false)} // Resume rotation when hover ends
