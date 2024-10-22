@@ -589,8 +589,6 @@ function Countinues() {
 
 
       }
-
-
     }
     else {
       alert('Please select or add an address to proceed.')

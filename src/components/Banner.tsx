@@ -8,12 +8,12 @@ const Banner = () => {
     '/data/t-shirt.jpg',
     '/data/t-shirt.jpg',
   ];
-  const cl=['cat1','cat2','cat3','cat4']
+  const cl = ['cat1', 'cat2', 'cat3', 'cat4']
   const bannerRef = useRef<HTMLDivElement | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false); // Track hover state
 
-  
+
 
   useEffect(() => {
     if (!isHovered) { // Only change images when not hovered
@@ -47,29 +47,30 @@ const Banner = () => {
 
   return (
     <>
-    <div
-      ref={bannerRef}
-      className="flex overflow-hidden snap-x snap-mandatory h-screen"
-      style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }} // Hide scrollbar
-      onMouseEnter={() => setIsHovered(true)} // Stop rotation when hovered
-      onMouseLeave={() => setIsHovered(false)} // Resume rotation when hover ends
-    >
-      {[...images, ...images].map((image, index) => ( // Duplicate the images for seamless scroll
+      <div
+        ref={bannerRef}
+        className="flex overflow-hidden snap-x snap-mandatory h-auto sm:h-screen mt-20" // Responsive height
+        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }} // Hide scrollbar
+        onMouseEnter={() => setIsHovered(true)} // Stop rotation when hovered
+        onMouseLeave={() => setIsHovered(false)} // Resume rotation when hover ends
+      >
+        {[...images, ...images].map((image, index) => ( // Duplicate the images for seamless scroll
+          <div key={index} className="flex-shrink-0 w-full snap-center">
+            <Link href={`product/${cl[index]}`}>
+              <div className="relative w-full h-0 pb-[100%] sm:pb-[56.25%]"> {/* Square on small devices, 16:9 on larger */}
+                <Image
+                  src={image}
+                  alt={`Banner Image ${index + 1}`}
+                  layout="fill"
+                  objectFit="cover"
+                  className="w-full h-full"
+                />
+              </div>
+            </Link>
+          </div>
+        ))}
+      </div>
 
-        <div key={index} className="flex-shrink-0 w-full snap-center">
-          <Link href={`product/${cl[index]}`}>
-          <Image
-            src={image}
-            alt={`Banner Image ${index + 1}`}
-            layout="responsive"
-            width={1920} // Specify a ratio
-            height={1080}
-            className="w-full h-full object-cover"
-          />
-          </Link>
-        </div>
-      ))}
-    </div>
     </>
   );
 };
