@@ -50,8 +50,8 @@ export async function POST(request: Request) {
         username,
         verifycode
       );
-      console.log(emailResponse);
-
+      console.log("emailResponse",emailResponse);
+      console.log("userotp",verifycode);
       if (!emailResponse) {
         return NextResponse.json({
           success: false,

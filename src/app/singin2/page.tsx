@@ -54,13 +54,13 @@ const AuthForm = () => {
       console.log('This is the response:', response.headers);
       
       console.log("token",data.token)
-      
+      console.log('token setup')
       if (response.ok) {
    
         localStorage.setItem('authToken', data.token);
         setSuccess(isLogin ? 'Logged in successfully!' : 'User registered successfully ! Now verify your email');
         const decodedToken = jwt.decode(data.token) as { id: string; email: string; phone: string};
-        console.log(decodedToken)
+        console.log('decodedtoken',decodedToken)
         
         if(!isLogin){
           // Redirect to OTP check page and pass email as query parameter

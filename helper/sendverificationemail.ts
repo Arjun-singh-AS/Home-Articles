@@ -9,7 +9,7 @@ export async function sendverificationemail(
 ){
     try {
             await resend.emails.send({
-            from: 'Home Articles <thorranger2000@gmail.com>',
+            from: 'Home Articles <onboarding@resend.dev>',
             to:email,
             subject: otp,
             react: VerificationEmail({username,otp}),

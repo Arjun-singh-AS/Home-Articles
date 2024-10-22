@@ -747,10 +747,7 @@ function Countinues() {
       {/* Enhanced Price Details Section */}
       <div className="bg-gray-800 p-6 rounded shadow-lg mb-6 w-[60vw] mx-auto">
         <h3 className="text-2xl font-bold mb-4 text-center text-gray-200">Price Details</h3>
-        <div className="flex justify-between text-gray-400 text-lg mb-2">
-          <span>Subtotal</span>
-          <span className="font-medium text-white">₹{subtotal.toFixed(2)}</span>
-        </div>
+        
         <div className="flex justify-between text-gray-400 text-lg mb-2">
           <span>Shipping</span>
           <span className="font-medium text-white">₹{shippingCost.toFixed(2)}</span>
@@ -762,6 +759,10 @@ function Countinues() {
         <div className="flex justify-between text-gray-400 text-lg mb-2">
           <span>Discount</span>
           <span className="text-white">-₹{(totalPrice - sellingprice).toFixed(2)}</span>
+        </div>
+        <div className="flex justify-between text-gray-400 text-lg mb-2">
+          <span>Subtotal</span>
+          <span className="font-medium text-white">₹{subtotal.toFixed(2)}</span>
         </div>
         <div className="flex justify-between text-lg font-semibold border-t border-gray-600 pt-4">
           <span className="text-gray-100">Total Amount</span>

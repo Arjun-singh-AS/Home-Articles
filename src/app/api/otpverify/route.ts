@@ -18,9 +18,9 @@ export async function POST(req: Request) {
 
         // Find the user by email
         const user = await UserModel.findOne({ _id:id });
-        console.log(id)
-        console.log(otp)
-        console.log(user)
+        console.log('id',id)
+        console.log('otp',otp)
+        console.log('user',user)
 
 
         if (!user) {
@@ -44,6 +44,8 @@ export async function POST(req: Request) {
         console.log(otp)
         console.log(user.otp)
         // const isMatch = await bcrypt.compare(otp, user.otp);
+        console.log("otp",otp)
+        console.log("user.otp",user.otp)
         if (otp!=user.otp) {
             return NextResponse.json({ success: false, message: 'Invalid OTP' }, { status: 400 });
         }

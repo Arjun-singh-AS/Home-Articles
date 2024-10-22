@@ -45,8 +45,10 @@ export default function Home() {
 
   // State for search results
   const [searchResults, setSearchResults] = useState<Product[]>([]);
-
+  
+  
   // Ensure hooks are used unconditionally
+  
   useEffect(() => {
     const query = searchParams.get('search') || '';
 

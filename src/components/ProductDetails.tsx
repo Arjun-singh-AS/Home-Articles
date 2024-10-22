@@ -84,6 +84,19 @@ const ProductDetail = () => {
     );
   }
 
+  const handleColorChange = (colorVariant: ColorVariant) => {
+    setSelectedColor(colorVariant.color);
+    setSelectedSize(colorVariant.sizes[0].size); // Default to the first size of the new color
+
+    // Get the first size details for the selected color
+    const firstSizeDetails = colorVariant.sizes[0];
+
+    if (firstSizeDetails) {
+      // setSelectedImage(firstSizeDetails.images[0]); // Set the first image for the first size of the selected color
+      setPrice(firstSizeDetails.price); // Set the price for the first size of the selected color
+      setInstock(firstSizeDetails.instock); // Set the instock status for the first size of the selected color
+    }
+  };
 
   const handleSizeChange = (product: Product, size: string) => {
     setSelectedSize(size);
@@ -102,19 +115,7 @@ const ProductDetail = () => {
     }
   };
 
-  const handleColorChange = (colorVariant: ColorVariant) => {
-    setSelectedColor(colorVariant.color);
-    setSelectedSize(colorVariant.sizes[0].size); // Default to the first size of the new color
-
-    // Get the first size details for the selected color
-    const firstSizeDetails = colorVariant.sizes[0];
-
-    if (firstSizeDetails) {
-      // setSelectedImage(firstSizeDetails.images[0]); // Set the first image for the first size of the selected color
-      setPrice(firstSizeDetails.price); // Set the price for the first size of the selected color
-      setInstock(firstSizeDetails.instock); // Set the instock status for the first size of the selected color
-    }
-  };
+  
 
   const isProductInCart = cartItems.some((cartItem) => cartItem.id === product.id);
 
@@ -174,7 +175,7 @@ const ProductDetail = () => {
       <div className="mt-10 bg-dark rounded-lg shadow-lg p-2 max-w-4xl w-full mx-4">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
           <div className="w-full lg:w-1/2">
-            <div className="relative w-[80%] h-[80%] md:w-[600px] md:h-[500px]">
+            <div className="relative">
               <Image
                 // src={selectedImage}
                 src={'/data/t-shirt.jpg'}
