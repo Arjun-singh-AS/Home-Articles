@@ -18,7 +18,7 @@ export type Size = {
   size: string;
   instock: boolean;
   price: number;  // Added price specific to size
-  mprice:number;
+  mprice: number;
   images: string[]; // Retained the images field in Size
 };
 
@@ -124,14 +124,14 @@ const Homeproduct: React.FC<HomeProductProps> = ({ value }) => {
           <div key={productItem.id} className="flex justify-center">
             <BackgroundGradient className="flex flex-col rounded-[22px] bg-white dark:bg-zinc-900 overflow-hidden h-full w-full max-w-xs shadow-lg transition-transform transform hover:scale-105">
               <Link href={`/products/${productItem.id}`}>
-              <Image
-  src={`/data/t-shirt.jpg`}
-  alt={productItem.name}
-  layout="responsive"
-  width={500} // Set an aspect ratio with width and height
-  height={750}
-  className="object-contain h-32 sm:h-48 w-full"
-/>
+                <Image
+                  src={`/data/t-shirt.jpg`}
+                  alt={productItem.name}
+                  layout="responsive"
+                  width={500} // Set an aspect ratio with width and height
+                  height={750}
+                  className="object-contain h-32 sm:h-48 w-full"
+                />
               </Link>
 
               <div className="p-2 sm:p-4 flex flex-col items-center text-center flex-grow">
@@ -177,7 +177,7 @@ const Homeproduct: React.FC<HomeProductProps> = ({ value }) => {
       </div>
 
       {/* Pagination Controls */}
-      <div className="flex justify-between mt-8 mx-20">
+      <div className="flex justify-between mt-8 mx-2 sm:mx-20">
         <button
           className={`bg-teal-600 text-white px-4 py-2 rounded-full ${currentPage === 1 && 'opacity-50 cursor-not-allowed'}`}
           onClick={handlePreviousPage}
