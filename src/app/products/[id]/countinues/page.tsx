@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { SetStateAction, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { JwtPayload } from 'jsonwebtoken'; // Import JwtPayload to properly type decoded tokens
 import { useParams } from 'next/navigation';
@@ -141,6 +141,15 @@ function Countinues() {
   const [selectedColor, setSelectedColor] = useState<string | undefined>();
   const [selectedSize, setSelectedSize] = useState<string | undefined>();
   // const [selectedImage, setSelectedImage] = useState<string | undefined>();
+
+
+
+  const [selectedImage,setSelectedImage]=useState(0)
+  const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
+  // Find the product based on the id
+  const [images, setImages] = useState<string[]>([]);
+  
+
   const product = products.find((item) => item.id === Number(id));
 
 
@@ -253,7 +262,8 @@ function Countinues() {
         setmarkprice(selectedSizeVariant?.mprice || 0);
         setprice(selectedSizeVariant!.price)
 
-
+        if(selectedSizeVariant!.images)
+          setImages(selectedSizeVariant!.images)
         setSubtotal(quantity * selectedPrice + shippingCost);
       }
       else if (selectedColor) {
@@ -265,6 +275,8 @@ function Countinues() {
         setprice(selectedSizeVariant!.price)
 
         setSubtotal(quantity * selectedPrice + shippingCost);
+        if(selectedSizeVariant!.images)
+          setImages(selectedSizeVariant!.images)
       }
       else {
         const firstColor = product.colors[0];
@@ -280,7 +292,8 @@ function Countinues() {
           setInStack(firstSize.instock); // Set instock status for the selected size
           setmarkprice(selectedSizeVariant?.mprice || 0);
           setSubtotal(quantity * price + shippingCost);
-
+          if(product.colors[0].sizes[0].images)
+            setImages(product.colors[0].sizes[0].images)
         }
       }
 
@@ -599,7 +612,22 @@ function Countinues() {
   if (!isAuthenticated) {
     return null;
   }
+
   console.log(isSizeInStock)
+
+  const nextImage = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex((prevIndex) => 
+      (prevIndex - 1 + images.length) % images.length
+    );
+  };
+  const handleImage=(index:SetStateAction<number>)=>{
+    setSelectedImage(index)
+  }
+
   return (
     <>
       <div className="bg-black text-white min-h-screen p-4 flex flex-col items-center justify-center">
@@ -649,15 +677,82 @@ function Countinues() {
           <div className="mt-10 bg-dark rounded-lg shadow-lg p-2 max-w-4xl w-full mx-4">
             <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
               <div className="w-full lg:w-1/2">
+
+
+
+              <div className="container mx-auto px-4">
+      {/* For large devices, show products in a grid */}
+      <div className="hidden lg:grid grid-cols-[1fr_3fr] gap-6">
+        <div>
+          {images.map((image, index) => (
+            <div
+              key={index}
+              
+            >
+              <button onClick={() => handleImage(index)} className={`${
+                selectedImage === index ? 'border-4 border-blue-500' : ''
+              }`}>
                 <Image
-                  // src={selectedImage || ""} // ensure it's a valid image source
-                  src={'/data/t-shirt.jpg'}
-                  alt={product.name} // ensure this is a string
-                  width={600} // set fixed width for optimization
-                  height={500} // set fixed height for optimization
-                  // className="w-[80%] h-[80%] md:w-[600px] md:h-[500px] object-cover rounded-md shadow-sm"
+                  src={image} // dynamic image from the map
+                  alt={`Product ${index}`}
+                  width={100} // optimized width
+                  height={100} // optimized height
+                  objectFit="cover" // maintain aspect ratio
+                  className="rounded-md shadow-sm m-2"
                 />
-              </div>
+              </button>
+            </div>
+          ))}
+        </div>
+
+        {/* Large screen selected image */}
+        <div>
+          <Image
+            src={images[selectedImage]}
+            alt="Selected Product"
+            width={550}
+            height={800}
+            objectFit="cover"
+            className="rounded-md shadow-sm"
+          />
+        </div>
+      </div>
+
+      {/* For small devices, show a swipeable carousel */}
+      <div className="lg:hidden flex items-center justify-center overflow-hidden relative">
+        {/* Previous Button */}
+        <button
+          onClick={prevImage}
+          className="absolute left-0 z-10 p-2 text-white bg-gray-800 rounded-full"
+        >
+          &#10094; {/* Left arrow */}
+        </button>
+
+        {/* Display the current image */}
+        <div className="snap-center shrink-0 w-full">
+          <Image
+            src={images[currentImageIndex]}
+            alt={`Product ${currentImageIndex}`}
+            width={450}
+            height={600}
+            objectFit="cover"
+            className="rounded-md shadow-sm"
+          />
+        </div>
+
+        {/* Next Button */}
+        <button
+          onClick={nextImage}
+          className="absolute right-0 z-10 p-2 text-white bg-gray-800 rounded-full"
+        >
+          &#10095; {/* Right arrow */}
+        </button>
+      </div>
+    </div>
+
+
+
+
 
               <div className="flex-1 w-full lg:w-1/2">
                 <h2 className="text-3xl font-bold mb-4 text-white-800">Product Brand Name</h2>
@@ -693,7 +788,7 @@ function Countinues() {
                     </div>
                   </div>
                 )}
-
+                </div>
 
                 {product.colors.find((variant) => variant.color === selectedColor)?.sizes && (
                   <div className="mb-6">

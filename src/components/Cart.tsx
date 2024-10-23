@@ -50,7 +50,8 @@ const Cart = () => {
   };
 
   return (
-    <div className="container mx-auto my-20 py-10 max-w-[80%]"> {/* Limit width to 80% and center */}
+    <div className="bg-white">
+    <div className="bg-white container mx-auto my-20 py-15 max-w-[80%]"> {/* Limit width to 80% and center */}
       <div className="flex justify-center mb-4">
         <h2 className="text-2xl font-bold text-white-800">Your Cart</h2>
       </div>
@@ -114,6 +115,7 @@ const Cart = () => {
         </div>
 
       )}
+    </div>
     </div>
   );
 };

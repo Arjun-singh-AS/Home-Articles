@@ -64,13 +64,14 @@ const ProductDetail = () => {
 
   const [selectedImage,setSelectedImage]=useState(0)
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
+  const [images, setImages] = useState<string[]>([]);
   // Find the product based on the id
-  const images = [
-    '/data/t-shirt.jpg',
-    '/data/t-shirt.jpg',
-    '/data/t-shirt.jpg',
-    '/data/t-shirt.jpg',
-  ];
+  // const images = [
+  //   '/data/t-shirt.jpg',
+  //   'https://res.cloudinary.com/daib3lgaj/image/upload/v1729695898/jzzz72dlpsgelwjopw1w.png',
+  //   '/data/t-shirt.jpg',
+  //   '/data/t-shirt.jpg',
+  // ];
   
   
   // Once the product is found, initialize the state values based on the product data
@@ -82,6 +83,9 @@ const ProductDetail = () => {
       setPrice(product.colors[0].sizes[0].price);
       setsellprice(product.colors[0].sizes[0].mprice);
       setInstock(product.colors[0].sizes[0].instock);
+      if (product.colors[0].sizes[0].images) {
+        setImages(product.colors[0].sizes[0].images);
+      }
     }
   }, []);
 
@@ -123,10 +127,6 @@ const ProductDetail = () => {
       setsellprice(selectedSizeDetails.mprice)
     }
   };
-
-  
-
-  const isProductInCart = cartItems.some((cartItem) => cartItem.id === product.id);
 
   const handleQuantityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setQuantity(Number(e.target.value));
@@ -362,7 +362,7 @@ const ProductDetail = () => {
 
               </button>
 
-              {!isProductInCart && (
+              {(
                 <button
                   onClick={() => AddToCart(product)}
                   className="mt-4 mx-2 px-6 py-3 bg-teal-600 text-white font-semibold rounded-md shadow hover:bg-teal-700 transition-all"
