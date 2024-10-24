@@ -383,7 +383,7 @@ const ProductDetail = () => {
               {!cartp ? (
                 <button
                   onClick={() => AddToCart(product)}
-                  className="mt-4 mx-2 px-6 py-3 bg-teal-600 text-white font-semibold rounded-md shadow hover:bg-teal-700 transition-all"
+                  className="mx-2 px-6 py-3 bg-teal-600 text-white font-semibold rounded-md shadow hover:bg-teal-700 transition-all"
                 >
                   Add to Cart
                 </button>
@@ -393,7 +393,7 @@ const ProductDetail = () => {
                     onClick={() =>
                       updateQuantity(cartp.id, cartp.color, cartp.size, cartp.quantity - 1)
                     }
-                    className="bg-gray-300 text-gray-700 px-3 py-2 rounded hover:bg-gray-400"
+                    className="bg-gray-300 text-gray-700 px-3 py-1 rounded hover:bg-gray-400"
                     disabled={cartp.quantity === 1}
                   >
                     -
