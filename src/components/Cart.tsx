@@ -50,17 +50,22 @@ const Cart = () => {
   };
 
   return (
+    <div className="bg-white w-full mt-28 py-20">
+  {/* Cart content limited to 80% width and centered */}
+  <div className="container max-w-[80%] mx-auto">
+    <div className="flex justify-center text-black">
+      <h2 className="text-2xl font-bold text-black my-3">Your Cart</h2>
+    </div>
     <div className="bg-white">
-    <div className="bg-white container mx-auto my-20 py-15 max-w-[80%]"> {/* Limit width to 80% and center */}
-      <div className="flex justify-center mb-4">
-        <h2 className="text-2xl font-bold text-white-800">Your Cart</h2>
-      </div>
       {cartWithProductDetails.length === 0 ? (
         <p className="text-lg text-gray-800 text-center">Your cart is empty</p>
       ) : (
-        <ul className="space-y-4">
+        <ul>
           {cartWithProductDetails.map((cartItem) => (
-            <li key={`${cartItem.id}-${cartItem.color}-${cartItem.size}`} className="flex items-center bg-white p-4 rounded shadow-md">
+            <li
+              key={`${cartItem.id}-${cartItem.color}-${cartItem.size}`}
+              className="relative flex items-center bg-white p-4 rounded shadow-md"
+            >
               <Image
                 src={"/data/t-shirt.jpg"} // Replace with the actual image path
                 alt={cartItem.product?.name || ''}
@@ -69,54 +74,89 @@ const Cart = () => {
                 className="w-30 h-40 object-cover rounded"
               />
               <div className="flex-1 ml-4">
-                <h3 className="text-lg font-semibold text-gray-800">{cartItem.product?.name}</h3>
+                <h3 className="text-lg font-semibold text-gray-800">
+                  {cartItem.product?.name}
+                </h3>
                 <p className="text-sm text-gray-800">Color: {cartItem.color}</p>
                 <p className="text-sm text-gray-800">Size: {cartItem.size}</p>
-                <p className="mt-1 text-md font-medium text-gray-800">Price: ${cartItem.price}</p>
-                <p className="mt-1 text-md font-medium text-gray-800">Total: ${cartItem.total.toFixed(2)}</p> {/* Total value for this product */}
-                <p className="mt-2 text-sm text-gray-800">{cartItem.product?.description}</p>
-              </div>
-              <div className="flex items-center ml-4">
+                <p className="mt-1 text-md font-medium text-gray-800">
+                  Price: ${cartItem.price}
+                </p>
+                <p className="mt-1 text-md font-medium text-gray-800">
+                  Total: ${cartItem.total.toFixed(2)}
+                </p>
+                {/* <p className="mt-2 text-sm text-gray-800">
+                  {cartItem.product?.description}
+                </p> */}
+
+
+<div className="flex">
                 <button
-                  onClick={() => updateQuantity(cartItem.id, cartItem.color, cartItem.size, cartItem.quantity - 1)}
-                  className="bg-gray-300 text-gray-700 p-2 rounded hover:bg-gray-400"
+                  onClick={() =>
+                    updateQuantity(
+                      cartItem.id,
+                      cartItem.color,
+                      cartItem.size,
+                      cartItem.quantity - 1
+                    )
+                  }
+                  className="bg-gray-300 text-gray-700 py-1 px-2 rounded hover:bg-gray-400"
                   disabled={cartItem.quantity === 1}
                 >
                   -
                 </button>
-                <span className="mx-4 text-lg text-gray-800">{cartItem.quantity}</span>
+                <span className="mx-3 text-lg text-gray-800">
+                  {cartItem.quantity}
+                </span>
                 <button
-                  onClick={() => updateQuantity(cartItem.id, cartItem.color, cartItem.size, cartItem.quantity + 1)}
-                  className="bg-gray-300 text-gray-700 p-2 rounded hover:bg-gray-400"
+                  onClick={() =>
+                    updateQuantity(
+                      cartItem.id,
+                      cartItem.color,
+                      cartItem.size,
+                      cartItem.quantity + 1
+                    )
+                  }
+                  className="bg-gray-300 text-gray-700 py-1 px-2 rounded hover:bg-gray-400"
                 >
                   +
                 </button>
-
-                <button
-                  onClick={() => removeFromCart(cartItem.id, cartItem.color, cartItem.size)}
-                  className="mx-5 bg-red-500 text-white p-2 rounded hover:bg-red-600 ml-4"
-                >
-                  Remove
-                </button>
               </div>
+              </div>
+              
+              {/* Cross (X) Remove Button */}
+              <button
+                onClick={() =>
+                  removeFromCart(cartItem.id, cartItem.color, cartItem.size)
+                }
+                className="absolute top-0 right-0 bg-gray-300 text-gray-700 p-2 m-2 hover:bg-gray-600"
+              >
+                &times;
+              </button>
             </li>
           ))}
         </ul>
       )}
       {cartWithProductDetails.length > 0 && (
-        <div className="mt-6 text-lg font-bold text-white-800 text-right flex justify-center mb-4">
-          Overall Total: ${overallTotal.toFixed(2)} {/* Display overall total */}
+        <div className="m-10 text-lg font-bold text-black text-right flex justify-between items-center mb-4 my-3">
+          <span>
+            Overall Total: ${overallTotal.toFixed(2)}{" "}
+            <span className="line-through">
+              ${(overallTotal + 200).toFixed(2)}
+            </span>
+          </span>
+          {/* Display overall total */}
           <button
-          className="ml-20 bg-blue-500 text-white px-6 py-1 rounded hover:bg-blue-700 transition"
-          onClick={handleBuy}
-        >
-          Buy
-        </button>
+            className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-700 transition my-3"
+            onClick={handleBuy}
+          >
+            Buy
+          </button>
         </div>
-
       )}
     </div>
-    </div>
+  </div>
+</div>
   );
 };
 
