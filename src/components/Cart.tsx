@@ -50,21 +50,21 @@ const Cart = () => {
   };
 
   return (
-    <div className="bg-white w-full mt-28 py-20">
+    <div className="bg-white w-full mt-28 py-10">
   {/* Cart content limited to 80% width and centered */}
   <div className="container max-w-[80%] mx-auto">
     <div className="flex justify-center text-black">
-      <h2 className="text-2xl font-bold text-black my-3">Your Cart</h2>
+      <h2 className="text-3xl font-bold text-black">Your Cart</h2> {/* Increased font size for better visibility */}
     </div>
     <div className="bg-white">
       {cartWithProductDetails.length === 0 ? (
         <p className="text-lg text-gray-800 text-center">Your cart is empty</p>
       ) : (
-        <ul>
+        <ul className="space-y-6"> {/* Added space between each cart item */}
           {cartWithProductDetails.map((cartItem) => (
             <li
               key={`${cartItem.id}-${cartItem.color}-${cartItem.size}`}
-              className="relative flex items-center bg-white p-4 rounded shadow-md"
+              className="relative flex items-center bg-white p-6 rounded shadow-md"
             >
               <Image
                 src={"/data/t-shirt.jpg"} // Replace with the actual image path
@@ -85,43 +85,39 @@ const Cart = () => {
                 <p className="mt-1 text-md font-medium text-gray-800">
                   Total: ${cartItem.total.toFixed(2)}
                 </p>
-                {/* <p className="mt-2 text-sm text-gray-800">
-                  {cartItem.product?.description}
-                </p> */}
 
-
-<div className="flex">
-                <button
-                  onClick={() =>
-                    updateQuantity(
-                      cartItem.id,
-                      cartItem.color,
-                      cartItem.size,
-                      cartItem.quantity - 1
-                    )
-                  }
-                  className="bg-gray-300 text-gray-700 py-1 px-2 rounded hover:bg-gray-400"
-                  disabled={cartItem.quantity === 1}
-                >
-                  -
-                </button>
-                <span className="mx-3 text-lg text-gray-800">
-                  {cartItem.quantity}
-                </span>
-                <button
-                  onClick={() =>
-                    updateQuantity(
-                      cartItem.id,
-                      cartItem.color,
-                      cartItem.size,
-                      cartItem.quantity + 1
-                    )
-                  }
-                  className="bg-gray-300 text-gray-700 py-1 px-2 rounded hover:bg-gray-400"
-                >
-                  +
-                </button>
-              </div>
+                <div className="flex">
+                  <button
+                    onClick={() =>
+                      updateQuantity(
+                        cartItem.id,
+                        cartItem.color,
+                        cartItem.size,
+                        cartItem.quantity - 1
+                      )
+                    }
+                    className="bg-gray-300 text-gray-700 py-1 px-3 rounded hover:bg-gray-400"
+                    disabled={cartItem.quantity === 1}
+                  >
+                    -
+                  </button>
+                  <span className="mx-3 text-lg text-gray-800">
+                    {cartItem.quantity}
+                  </span>
+                  <button
+                    onClick={() =>
+                      updateQuantity(
+                        cartItem.id,
+                        cartItem.color,
+                        cartItem.size,
+                        cartItem.quantity + 1
+                      )
+                    }
+                    className="bg-gray-300 text-gray-700 py-1 px-3 rounded hover:bg-gray-400"
+                  >
+                    +
+                  </button>
+                </div>
               </div>
               
               {/* Cross (X) Remove Button */}
@@ -138,7 +134,7 @@ const Cart = () => {
         </ul>
       )}
       {cartWithProductDetails.length > 0 && (
-        <div className="m-10 text-lg font-bold text-black text-right flex justify-between items-center mb-4 my-3">
+        <div className="mt-12 text-lg font-bold text-black text-right flex justify-between items-center">
           <span>
             Overall Total: ${overallTotal.toFixed(2)}{" "}
             <span className="line-through">
@@ -147,7 +143,7 @@ const Cart = () => {
           </span>
           {/* Display overall total */}
           <button
-            className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-700 transition my-3"
+            className="bg-blue-500 text-white px-8 py-3 rounded hover:bg-blue-700 transition"
             onClick={handleBuy}
           >
             Buy
@@ -157,6 +153,7 @@ const Cart = () => {
     </div>
   </div>
 </div>
+
   );
 };
 
