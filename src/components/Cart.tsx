@@ -50,7 +50,7 @@ const Cart = () => {
   };
 
   return (
-    <div className="bg-white w-full mt-28 py-10">
+    <div className="bg-white w-full mt-28 pt-10">
   {/* Cart content limited to 80% width and centered */}
   <div className="container max-w-[80%] mx-auto">
     <div className="flex justify-center text-black">
@@ -134,22 +134,22 @@ const Cart = () => {
         </ul>
       )}
       {cartWithProductDetails.length > 0 && (
-        <div className="mt-12 text-lg font-bold text-black text-right flex justify-between items-center">
-          <span>
-            Overall Total: ${overallTotal.toFixed(2)}{" "}
-            <span className="line-through">
-              ${(overallTotal + 200).toFixed(2)}
-            </span>
-          </span>
-          {/* Display overall total */}
-          <button
-            className="bg-blue-500 text-white px-8 py-3 rounded hover:bg-blue-700 transition"
-            onClick={handleBuy}
-          >
-            Buy
-          </button>
-        </div>
-      )}
+  <div className="mt-12 text-lg font-bold text-black text-right md:flex md:justify-between md:items-center py-2">
+    <span className="block mb-4 md:mb-0">
+      Overall Total: ${overallTotal.toFixed(2)}{" "}
+      <span className="line-through">
+        ${(overallTotal + 200).toFixed(2)}
+      </span>
+    </span>
+    {/* Display overall total */}
+    <button
+      className="w-full md:w-auto bg-blue-500 text-white px-8 py-3 rounded hover:bg-blue-700 transition"
+      onClick={handleBuy}
+    >
+      Buy
+    </button>
+  </div>
+)}
     </div>
   </div>
 </div>
