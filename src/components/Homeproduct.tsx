@@ -148,6 +148,8 @@ const Homeproduct: React.FC<HomeProductProps> = ({ value }) => {
                 </span>
                 <span className="text-gray-500 text-sm sm:text-base">₹ {productItem.sellingPrice}</span>
 
+
+
                 <div className="flex flex-col sm:flex-row items-center space-x-0 sm:space-x-4 mt-2 sm:mt-4">
                   <button
                     className="rounded-full px-3 py-1 text-xs sm:text-sm lg:text-base text-white flex items-center justify-center space-x-1 bg-black font-bold dark:bg-zinc-800"
@@ -163,6 +165,7 @@ const Homeproduct: React.FC<HomeProductProps> = ({ value }) => {
                     >
                       <span>Add to cart</span>
                     </button>
+                    
                   </div>
                 </div>
 
