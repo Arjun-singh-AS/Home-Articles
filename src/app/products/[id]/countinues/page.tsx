@@ -264,6 +264,7 @@ function Countinues() {
 
         if(selectedSizeVariant!.images)
           setImages(selectedSizeVariant!.images)
+        
         setSubtotal(quantity * selectedPrice + shippingCost);
       }
       else if (selectedColor) {

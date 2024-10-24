@@ -86,7 +86,7 @@ const Cart = () => {
                   Total: ${cartItem.total.toFixed(2)}
                 </p>
 
-                <div className="flex">
+                <div className="flex border border-gray-300 p-4">
                   <button
                     onClick={() =>
                       updateQuantity(

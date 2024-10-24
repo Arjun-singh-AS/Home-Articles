@@ -1,7 +1,7 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import { useCart } from '../context/CartContext';
+import { CartItem, useCart } from '../context/CartContext';
 import { SetStateAction, useEffect, useState } from 'react';
 import ProductRate from './ProductRate';
 import { useRouter } from 'next/navigation';
@@ -43,28 +43,29 @@ const ProductDetail = () => {
   const { id } = useParams();
   const router = useRouter();
 
-  const { cartItems, addToCart } = useCart();
+  const { cartItems, addToCart, updateQuantity } = useCart();
   const [quantity, setQuantity] = useState(1);
   const { products } = useProducts();
   // Find the product by its id in the products data
-  
 
 
-  const [selectedSize, setSelectedSize] = useState<string>(''); 
-  const [selectedColor, setSelectedColor] = useState<string>(''); 
+
+  const [selectedSize, setSelectedSize] = useState<string>('');
+  const [selectedColor, setSelectedColor] = useState<string>('');
   // const [selectedImage, setSelectedImage] = useState<string>(''); 
-  const [price, setPrice] = useState<number>(0); 
-  const [sellprice, setsellprice] = useState<number>(0); 
-  const [instock, setInstock] = useState<boolean>(false); 
-  
-  const [reviewUsername, setReviewUsername] = useState<string>(''); 
-  const [reviewComment, setReviewComment] = useState<string>(''); 
-  const [reviewRating, setReviewRating] = useState<number>(1); 
-  
+  const [price, setPrice] = useState<number>(0);
+  const [sellprice, setsellprice] = useState<number>(0);
+  const [instock, setInstock] = useState<boolean>(false);
 
-  const [selectedImage,setSelectedImage]=useState(0)
+  const [reviewUsername, setReviewUsername] = useState<string>('');
+  const [reviewComment, setReviewComment] = useState<string>('');
+  const [reviewRating, setReviewRating] = useState<number>(1);
+
+
+  const [selectedImage, setSelectedImage] = useState(0)
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
   const [images, setImages] = useState<string[]>([]);
+
   // Find the product based on the id
   // const images = [
   //   '/data/t-shirt.jpg',
@@ -72,8 +73,8 @@ const ProductDetail = () => {
   //   '/data/t-shirt.jpg',
   //   '/data/t-shirt.jpg',
   // ];
-  
-  
+
+
   // Once the product is found, initialize the state values based on the product data
   useEffect(() => {
     if (product) {
@@ -90,7 +91,8 @@ const ProductDetail = () => {
   }, []);
 
   const product = products.find((item) => item.id === Number(id));
-  
+  const cartp = cartItems.find((item) => item.id == product?.id && item.color == selectedColor && item.size == selectedSize)
+
   if (!product) {
     return (
       <div className="text-center text-red-500 font-bold text-xl">Product not found.</div>
@@ -178,20 +180,38 @@ const ProductDetail = () => {
     setReviewComment('');
     setReviewRating(0);
   };
-  
+
 
   const nextImage = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
   };
 
   const prevImage = () => {
-    setCurrentImageIndex((prevIndex) => 
+    setCurrentImageIndex((prevIndex) =>
       (prevIndex - 1 + images.length) % images.length
     );
   };
-  const handleImage=(index:SetStateAction<number>)=>{
+  const handleImage = (index: SetStateAction<number>) => {
     setSelectedImage(index)
   }
+
+
+  // const isProductInCart = () => {
+  //   const foundItem = cartItems.find(
+  //     (cartItem) => cartItem.id === product.id
+  //   );
+  //   if (foundItem) {
+  //     setCartItemset(foundItem);
+  //     return true;
+  //   }
+  //   return false;
+  // };
+  // Usage
+
+
+
+
+
   return (
     <div className="mt-20 flex justify-center items-center min-h-screen bg-dark-100">
       <div className="mt-10 bg-dark rounded-lg shadow-lg p-2  w-full mx-2">
@@ -201,75 +221,74 @@ const ProductDetail = () => {
 
 
 
-          <div className="container mx-auto px-4">
-      {/* For large devices, show products in a grid */}
-      <div className="hidden lg:grid grid-cols-[1fr_3fr] gap-6">
-        <div>
-          {images.map((image, index) => (
-            <div
-              key={index}
-              
-            >
-              <button onClick={() => handleImage(index)} className={`${
-                selectedImage === index ? 'border-4 border-blue-500' : ''
-              }`}>
-                <Image
-                  src={image} // dynamic image from the map
-                  alt={`Product ${index}`}
-                  width={100} // optimized width
-                  height={100} // optimized height
-                  objectFit="cover" // maintain aspect ratio
-                  className="rounded-md shadow-sm m-2"
-                />
-              </button>
+            <div className="container mx-auto px-4">
+              {/* For large devices, show products in a grid */}
+              <div className="hidden lg:grid grid-cols-[1fr_3fr] gap-6">
+                <div>
+                  {images.map((image, index) => (
+                    <div
+                      key={index}
+
+                    >
+                      <button onClick={() => handleImage(index)} className={`${selectedImage === index ? 'border-4 border-blue-500' : ''
+                        }`}>
+                        <Image
+                          src={image} // dynamic image from the map
+                          alt={`Product ${index}`}
+                          width={100} // optimized width
+                          height={100} // optimized height
+                          objectFit="cover" // maintain aspect ratio
+                          className="rounded-md shadow-sm m-2"
+                        />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Large screen selected image */}
+                <div>
+                  <Image
+                    src={images[selectedImage]}
+                    alt="Selected Product"
+                    width={550}
+                    height={800}
+                    objectFit="cover"
+                    className="rounded-md shadow-sm"
+                  />
+                </div>
+              </div>
+
+              {/* For small devices, show a swipeable carousel */}
+              <div className="lg:hidden flex items-center justify-center overflow-hidden relative">
+                {/* Previous Button */}
+                <button
+                  onClick={prevImage}
+                  className="absolute left-0 z-10 p-2 text-white bg-gray-800 rounded-full"
+                >
+                  &#10094; {/* Left arrow */}
+                </button>
+
+                {/* Display the current image */}
+                <div className="snap-center shrink-0 w-full">
+                  <Image
+                    src={images[currentImageIndex]}
+                    alt={`Product ${currentImageIndex}`}
+                    width={450}
+                    height={600}
+                    objectFit="cover"
+                    className="rounded-md shadow-sm"
+                  />
+                </div>
+
+                {/* Next Button */}
+                <button
+                  onClick={nextImage}
+                  className="absolute right-0 z-10 p-2 text-white bg-gray-800 rounded-full"
+                >
+                  &#10095; {/* Right arrow */}
+                </button>
+              </div>
             </div>
-          ))}
-        </div>
-
-        {/* Large screen selected image */}
-        <div>
-          <Image
-            src={images[selectedImage]}
-            alt="Selected Product"
-            width={550}
-            height={800}
-            objectFit="cover"
-            className="rounded-md shadow-sm"
-          />
-        </div>
-      </div>
-
-      {/* For small devices, show a swipeable carousel */}
-      <div className="lg:hidden flex items-center justify-center overflow-hidden relative">
-        {/* Previous Button */}
-        <button
-          onClick={prevImage}
-          className="absolute left-0 z-10 p-2 text-white bg-gray-800 rounded-full"
-        >
-          &#10094; {/* Left arrow */}
-        </button>
-
-        {/* Display the current image */}
-        <div className="snap-center shrink-0 w-full">
-          <Image
-            src={images[currentImageIndex]}
-            alt={`Product ${currentImageIndex}`}
-            width={450}
-            height={600}
-            objectFit="cover"
-            className="rounded-md shadow-sm"
-          />
-        </div>
-
-        {/* Next Button */}
-        <button
-          onClick={nextImage}
-          className="absolute right-0 z-10 p-2 text-white bg-gray-800 rounded-full"
-        >
-          &#10095; {/* Right arrow */}
-        </button>
-      </div>
-    </div>
 
 
 
@@ -353,24 +372,49 @@ const ProductDetail = () => {
               {instock ? <p className="text-green-500">In stock</p> : <p className="text-red-500">Out of stock</p>}
             </div>
 
-            <div className="flex m-auto">
+            <div className="flex mx-auto items-center my-3">
               <button
-                className="mt-4 mx-2 px-6 py-3 bg-teal-600 text-white font-semibold rounded-md shadow hover:bg-teal-700 transition-all"
+                className="mx-2 px-6 py-3 bg-teal-600 text-white font-semibold rounded-md shadow hover:bg-teal-700 transition-all"
                 onClick={() => handleBuy(product)}
               >
                 <span>Buy now </span>₹ {price}
-
               </button>
 
-              {(
+              {!cartp ? (
                 <button
                   onClick={() => AddToCart(product)}
                   className="mt-4 mx-2 px-6 py-3 bg-teal-600 text-white font-semibold rounded-md shadow hover:bg-teal-700 transition-all"
                 >
                   Add to Cart
                 </button>
+              ) : (
+                <div className="flex border border-gray-300 px-2 my-auto items-center h-full">
+                  <button
+                    onClick={() =>
+                      updateQuantity(cartp.id, cartp.color, cartp.size, cartp.quantity - 1)
+                    }
+                    className="bg-gray-300 text-gray-700 px-3 py-2 rounded hover:bg-gray-400"
+                    disabled={cartp.quantity === 1}
+                  >
+                    -
+                  </button>
+                  <span className="mx-3 text-lg text-gray-300">
+                    {cartp.quantity}
+                  </span>
+                  <button
+                    onClick={() =>
+                      updateQuantity(cartp.id, cartp.color, cartp.size, cartp.quantity + 1)
+                    }
+                    className="bg-gray-300 text-gray-700 px-3 py-1 rounded hover:bg-gray-400"
+                  >
+                    +
+                  </button>
+                </div>
               )}
             </div>
+
+
+
           </div>
         </div>
 
