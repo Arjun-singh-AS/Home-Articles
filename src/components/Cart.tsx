@@ -86,7 +86,7 @@ const Cart = () => {
                   Total: ${cartItem.total.toFixed(2)}
                 </p>
 
-                <div className="flex border border-gray-300 p-4">
+                <div className="inline-flex border border-gray-300 p-2">
                   <button
                     onClick={() =>
                       updateQuantity(
@@ -125,7 +125,7 @@ const Cart = () => {
                 onClick={() =>
                   removeFromCart(cartItem.id, cartItem.color, cartItem.size)
                 }
-                className="absolute top-0 right-0 bg-gray-300 text-gray-700 p-2 m-2 hover:bg-gray-600"
+                className="absolute top-0 right-0 bg-gray-300 text-gray-700 p-2 m-1 hover:bg-gray-600"
               >
                 &times;
               </button>
