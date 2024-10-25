@@ -109,7 +109,7 @@ function Order() {
                   </div>
                 ) : (
                   <>
-                    <div key={index} className="mb-6 flex flex-col bg-white border rounded-lg shadow-md overflow-hidden w-100">
+                    <div className="mb-6 flex flex-col bg-white border rounded-lg shadow-md overflow-hidden w-100">
                       <div className='flex'>
 
                         <Image
