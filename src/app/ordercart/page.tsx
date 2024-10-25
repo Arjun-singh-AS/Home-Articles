@@ -418,7 +418,7 @@ function OrderCart() {
       </div>
 
 
-      <div className="container max-w-[80%] mx-auto">
+      <div className="container max-w-[90%] mx-auto">
         <div className="bg-white">
           {cartWithProductDetails.length === 0 ? (
             <p className="text-lg text-gray-800 text-center">Your cart is empty</p>
@@ -427,7 +427,7 @@ function OrderCart() {
               {cartWithProductDetails.map((cartItem) => (
                 <li
                   key={`${cartItem.id}-${cartItem.color}-${cartItem.size}`}
-                  className="relative flex items-center bg-white p-6 rounded shadow-md"
+                  className="relative flex items-center bg-white p-3 rounded shadow-md"
                 >
                   <Image
                     src={"/data/t-shirt.jpg"} // Replace with the actual image path

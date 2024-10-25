@@ -52,7 +52,7 @@ const Cart = () => {
   return (
     <div className="bg-white w-full mt-28 pt-10">
       {/* Cart content limited to 80% width and centered */}
-      <div className="container max-w-[80%] mx-auto">
+      <div className="container max-w-[90%] mx-auto">
         <div className="flex justify-center text-black">
           <h2 className="text-3xl font-bold text-black">Your Cart</h2> {/* Increased font size for better visibility */}
         </div>
@@ -64,7 +64,7 @@ const Cart = () => {
               {cartWithProductDetails.map((cartItem) => (
                 <li
                   key={`${cartItem.id}-${cartItem.color}-${cartItem.size}`}
-                  className="relative flex items-center bg-white p-6 rounded shadow-md"
+                  className="relative flex items-center bg-white p-3 rounded shadow-md"
                 >
                   <Image
                     src={"/data/t-shirt.jpg"} // Replace with the actual image path
