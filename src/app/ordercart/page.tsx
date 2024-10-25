@@ -418,16 +418,14 @@ function OrderCart() {
       </div>
 
 
-      <div className="container mx-auto my-20 py-10 max-w-[80%]"> {/* Limit width to 80% and center */}
-        <div className="flex justify-center mb-4">
-          <h2 className="text-2xl font-bold text-white-800">Your Cart</h2>
-        </div>
-        {cartWithProductDetails.length === 0 ? (
-          <p className="text-lg text-gray-800 text-center">Your cart is empty</p>
-        ) : (
-          <ul className="space-y-6">
-            {cartWithProductDetails.map((cartItem) => (
-              <li
+      <div className="container max-w-[80%] mx-auto">
+        <div className="bg-white">
+          {cartWithProductDetails.length === 0 ? (
+            <p className="text-lg text-gray-800 text-center">Your cart is empty</p>
+          ) : (
+            <ul className="space-y-6"> {/* Added space between each cart item */}
+              {cartWithProductDetails.map((cartItem) => (
+                <li
                   key={`${cartItem.id}-${cartItem.color}-${cartItem.size}`}
                   className="relative flex items-center bg-white p-6 rounded shadow-md"
                 >
@@ -495,15 +493,10 @@ function OrderCart() {
                     &times;
                   </button>
                 </li>
-            ))}
-          </ul>
-        )}
-        {cartWithProductDetails.length > 0 && (
-          <div className="mt-6 text-lg font-bold text-white-800 text-right flex justify-center mb-4">
-            Overall Total: ${overallTotal.toFixed(2)} {/* Display overall total */}
-          </div>
-
-        )}
+              ))}
+            </ul>
+          )}
+        </div>
       </div>
 
       <div className="flex flex-col items-center justify-center">
