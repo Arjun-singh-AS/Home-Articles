@@ -52,7 +52,7 @@ const Cart = () => {
   return (
     <div className="bg-white w-full mt-28 pt-10">
       {/* Cart content limited to 80% width and centered */}
-      <div className="container max-w-[90%] mx-auto">
+      <div className="container max-w-[95%] lg:max-w-[80%] mx-auto">
         <div className="flex justify-center text-black">
           <h2 className="text-3xl font-bold text-black">Your Cart</h2> {/* Increased font size for better visibility */}
         </div>
