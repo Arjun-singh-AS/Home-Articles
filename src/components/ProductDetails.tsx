@@ -329,6 +329,7 @@ const ProductDetail = () => {
                 </div>
               </div>
             )}
+          
 
             {product.colors.find((variant) => variant.color === selectedColor)?.sizes && (
               <div className="mb-6">

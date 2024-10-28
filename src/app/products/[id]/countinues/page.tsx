@@ -11,6 +11,7 @@ import jwt from 'jsonwebtoken';
 // import mongoose from 'mongoose';
 import { useUser } from '@/context/UserContext';
 import Image from 'next/image';
+import Head from 'next/head';
 
 export const dynamic = 'force-dynamic';
 
@@ -123,7 +124,7 @@ function Countinues() {
   const [subtotal, setSubtotal] = useState(0); // Example subtotal for product
   const [shippingCost, setShippingCost] = useState(59); // Example shipping cost
   const { user } = useUser()
-  
+
   const [markprice, setmarkprice] = useState(0);
 
   const { id } = useParams();
@@ -144,13 +145,14 @@ function Countinues() {
 
 
 
-  const [selectedImage,setSelectedImage]=useState(0)
+  const [selectedImage, setSelectedImage] = useState(0)
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
   // Find the product based on the id
   const [images, setImages] = useState<string[]>([]);
-  
+
 
   const product = products.find((item) => item.id === Number(id));
+
 
 
   const loadRazorpayScript = () => {
@@ -262,9 +264,9 @@ function Countinues() {
         setmarkprice(selectedSizeVariant?.mprice || 0);
         setprice(selectedSizeVariant!.price)
 
-        if(selectedSizeVariant!.images)
+        if (selectedSizeVariant!.images)
           setImages(selectedSizeVariant!.images)
-        
+
         setSubtotal(quantity * selectedPrice + shippingCost);
       }
       else if (selectedColor) {
@@ -276,7 +278,7 @@ function Countinues() {
         setprice(selectedSizeVariant!.price)
 
         setSubtotal(quantity * selectedPrice + shippingCost);
-        if(selectedSizeVariant!.images)
+        if (selectedSizeVariant!.images)
           setImages(selectedSizeVariant!.images)
       }
       else {
@@ -293,7 +295,7 @@ function Countinues() {
           setInStack(firstSize.instock); // Set instock status for the selected size
           setmarkprice(selectedSizeVariant?.mprice || 0);
           setSubtotal(quantity * price + shippingCost);
-          if(product.colors[0].sizes[0].images)
+          if (product.colors[0].sizes[0].images)
             setImages(product.colors[0].sizes[0].images)
         }
       }
@@ -401,7 +403,7 @@ function Countinues() {
 
 
 
-  
+
 
 
   // Handle adding a new address
@@ -469,7 +471,7 @@ function Countinues() {
               size: selectedSize,
               color: selectedColor,
               // image: selectedImage,
-              image:'/data/t-shirt.jpg',
+              image: '/data/t-shirt.jpg',
               userid: userid,
               address: selectedAddress,
               username: user!.username,
@@ -516,7 +518,7 @@ function Countinues() {
               size: selectedSize,
               color: selectedColor,
               // image: selectedImage,
-              image:'/data/t-shirt.jpg',
+              image: '/data/t-shirt.jpg',
               userid: userid,
               address: selectedAddress,
               username: user!.username,
@@ -560,7 +562,7 @@ function Countinues() {
                     size: selectedSize,
                     color: selectedColor,
                     // image: selectedImage,
-                    image:'/data/t-shirt.jpg',
+                    image: '/data/t-shirt.jpg',
                     userid: userid,
                     address: selectedAddress,
                     username: user!.username,
@@ -621,17 +623,37 @@ function Countinues() {
   };
 
   const prevImage = () => {
-    setCurrentImageIndex((prevIndex) => 
+    setCurrentImageIndex((prevIndex) =>
       (prevIndex - 1 + images.length) % images.length
     );
   };
-  const handleImage=(index:SetStateAction<number>)=>{
+  const handleImage = (index: SetStateAction<number>) => {
     setSelectedImage(index)
   }
 
   return (
     <>
-      <div className="bg-black text-white min-h-screen p-4 flex flex-col items-center justify-center">
+
+      <Head>
+        <title>{`${product.name} - Home Articles`}</title>
+        <meta name="description" content={`Buy ${product.name} on Home Articles. ${product.description}`} />
+
+        {/* Open Graph Meta Tags */}
+        <meta property="og:title" content={`${product.name} - Home Articles`} />
+        <meta property="og:description" content={`Explore ${product.name} at Home Articles. ${product.description}`} />
+        <meta property="og:url" content={`https://yourdomain.com/products/${product.id}`} />
+        <meta property="og:image" content={product.image} />
+        <meta property="og:type" content="product" />
+
+        {/* Twitter Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${product.name} - Home Articles`} />
+        <meta name="twitter:description" content={`Check out ${product.name} on Home Articles.`} />
+        <meta name="twitter:image" content={product.image} />
+      </Head>
+
+
+      <div className="my-20 bg-black text-white p-10 flex flex-col items-center justify-center">
         <h2 className="text-2xl font-bold mb-4">Select or Add Address</h2>
 
         {/* Dropdown to select existing addresses */}
@@ -655,141 +677,146 @@ function Countinues() {
 
         {/* Input field for adding a new address */}
         <h3 className="text-lg font-semibold mb-2">Add New Address:</h3>
+        <div className='flex'>
         <input
           type="text"
           value={newAddress}
           onChange={(e) => setNewAddress(e.target.value)}
           placeholder="Enter your new address"
-          className="bg-gray-800 text-white p-2 rounded border border-gray-600 mb-2 w-[60vw]"
+          className="bg-gray-800 text-white p-2 rounded border border-gray-600 mb-2 w-[60vw] m-2"
         />
         <button
           onClick={handleAddAddress}
-          className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 mb-4"
+          className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 mb-4 m-1"
         >
-          Add Address
+          Add New Address
         </button>
+        </div>
       </div>
+      {errorMessage && <p className="text-red-500 text-center">{errorMessage}</p>}
       <div>
         {/* Error message */}
 
-        {errorMessage && <p className="text-red-500 text-center">{errorMessage}</p>}
+        
 
-        <div className="mt-20 flex justify-center items-center min-h-screen bg-dark-100">
-          <div className="mt-10 bg-dark rounded-lg shadow-lg p-2 max-w-4xl w-full mx-4">
-            <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
-              <div className="w-full lg:w-1/2">
-
-
-
-              <div className="container mx-auto px-4">
-      {/* For large devices, show products in a grid */}
-      <div className="hidden lg:grid grid-cols-[1fr_3fr] gap-6">
-        <div>
-          {images.map((image, index) => (
-            <div
-              key={index}
-              
-            >
-              <button onClick={() => handleImage(index)} className={`${
-                selectedImage === index ? 'border-4 border-blue-500' : ''
-              }`}>
-                <Image
-                  src={image} // dynamic image from the map
-                  alt={`Product ${index}`}
-                  width={100} // optimized width
-                  height={100} // optimized height
-                  objectFit="cover" // maintain aspect ratio
-                  className="rounded-md shadow-sm m-2"
-                />
-              </button>
-            </div>
-          ))}
-        </div>
-
-        {/* Large screen selected image */}
-        <div>
-          <Image
-            src={images[selectedImage]}
-            alt="Selected Product"
-            width={550}
-            height={800}
-            objectFit="cover"
-            className="rounded-md shadow-sm"
-          />
-        </div>
-      </div>
-
-      {/* For small devices, show a swipeable carousel */}
-      <div className="lg:hidden flex items-center justify-center overflow-hidden relative">
-        {/* Previous Button */}
-        <button
-          onClick={prevImage}
-          className="absolute left-0 z-10 p-2 text-white bg-gray-800 rounded-full"
-        >
-          &#10094; {/* Left arrow */}
-        </button>
-
-        {/* Display the current image */}
-        <div className="snap-center shrink-0 w-full">
-          <Image
-            src={images[currentImageIndex]}
-            alt={`Product ${currentImageIndex}`}
-            width={450}
-            height={600}
-            objectFit="cover"
-            className="rounded-md shadow-sm"
-          />
-        </div>
-
-        {/* Next Button */}
-        <button
-          onClick={nextImage}
-          className="absolute right-0 z-10 p-2 text-white bg-gray-800 rounded-full"
-        >
-          &#10095; {/* Right arrow */}
-        </button>
-      </div>
-    </div>
+        <div className="my-10 flex justify-center items-center min-h-screen bg-dark-100">
+      <div className="mt-10 bg-dark rounded-lg shadow-lg p-2  w-full mx-2">
+        <div className="flex flex-col lg:flex-row items-center justify-between mx-5">
+          <div className="w-full lg:w-1/2">
 
 
 
+          <div className="container mx-auto px-4">
+              {/* For large devices, show products in a grid */}
+              <div className="hidden lg:grid grid-cols-[1fr_3fr] gap-6">
+                <div>
+                {images.map((image, index) => (
+                    <div
+                      key={index}
 
-
-              <div className="flex-1 w-full lg:w-1/2">
-                <h2 className="text-3xl font-bold mb-4 text-white-800">Product Brand Name</h2>
-                <h1 className="text-3xl font-bold mb-4 text-white-800">{product.name}</h1>
-
-                <div className="mb-4">
-                  <div className="text-white">
-                    <ProductRate rate={product.ratings} count={product.reviews.length} className="text-white" />
-                  </div>
-                </div>
-                <p className="text-lg text-white-700 mb-4">{product.description}</p>
-
-                <div className="mb-6">
-                  <span className="text-2xl font-bold text-white-600">₹ {price.toFixed(2)}</span>
-                  <span className="line-through text-gray-400 ml-2">₹ {product.markPrice.toFixed(2)}</span>
-                  <span className="text-green-500 ml-2">You Save: ₹ {(product.markPrice - price).toFixed(2)}</span>
-                </div>
-
-                {product.colors && product.colors.length > 0 && (
-                  <div className="mb-6">
-                    <h3 className="font-semibold text-white-800 mb-2">Available Colors:</h3>
-                    <div className="flex space-x-2">
-                      {product.colors.map((colorVariant) => (
-                        <button
-                          key={colorVariant.color}
-                          onClick={() => handleColorChange(colorVariant)}
-                          className={`border border-white-400 rounded-md py-2 px-4 text-sm font-medium text-white-800 ${selectedColor === colorVariant.color ? 'bg-teal-600 text-white' : ''
-                            }`}
-                        >
-                          {colorVariant.color}
-                        </button>
+                    >
+                          <button onClick={() => handleImage(index)} className={`${selectedImage === index ? 'border-4 border-blue-500' : ''
+                          }`}>
+                        <Image
+                          src={image} // dynamic image from the map
+                          alt={`Product ${index}`}
+                          width={100} // optimized width
+                          height={100} // optimized height
+                          objectFit="cover" // maintain aspect ratio
+                          className="rounded-md shadow-sm m-2"
+                        />
+                      </button>
+                    </div>
                       ))}
                     </div>
-                  </div>
-                )}
+
+                    {/* Large screen selected image */}
+                    <div>
+                  <Image
+                    src={images[selectedImage]}
+                    alt="Selected Product"
+                    width={550}
+                    height={800}
+                    objectFit="cover"
+                    className="rounded-md shadow-sm"
+                  />
                 </div>
+                </div>
+
+                  {/* For small devices, show a swipeable carousel */}
+                  <div className="lg:hidden flex items-center justify-center overflow-hidden relative">
+                {/* Previous Button */}
+                <button
+                  onClick={prevImage}
+                  className="absolute left-0 z-10 p-2 text-white bg-gray-800 rounded-full"
+                >
+                  &#10094; {/* Left arrow */}
+                </button>
+
+                    {/* Display the current image */}
+                    <div className="snap-center shrink-0 w-full">
+                  <Image
+                    src={images[currentImageIndex]}
+                    alt={`Product ${currentImageIndex}`}
+                    width={450}
+                    height={600}
+                    objectFit="cover"
+                    className="rounded-md shadow-sm"
+                  />
+                </div>
+
+                    {/* Next Button */}
+                    <button
+                  onClick={nextImage}
+                  className="absolute right-0 z-10 p-2 text-white bg-gray-800 rounded-full"
+                >
+                  &#10095; {/* Right arrow */}
+                </button>
+              </div>
+            </div>
+
+
+            </div>
+
+
+            <div className="flex-1 w-full lg:w-1/2">
+            <h2 className="text-3xl font-bold mb-4 text-white-800">Product Brand Name</h2>
+            <h1 className="text-3xl font-bold mb-4 text-white-800">{product.name}</h1>
+
+                  <div className="mb-4">
+                    <div className="text-white">
+                      <ProductRate rate={product.ratings} count={product.reviews.length} className="text-white" />
+                    </div>
+                  </div><div className="mb-4">
+              <div className="text-white">
+                <ProductRate rate={product.ratings} count={product.reviews.length} className="text-white" />
+              </div>
+            </div>
+            <p className="text-lg text-white-700 mb-4">{product.description}</p>
+
+                  <div className="mb-6">
+                    <span className="text-2xl font-bold text-white-600">₹ {price}</span>
+                    <span className="line-through text-gray-400 ml-2">₹ {product.markPrice.toFixed(2)}</span>
+                    <span className="text-green-500 ml-2">You Save: ₹ {(product.markPrice - price).toFixed(2)}</span>
+                  </div>
+
+                  {product.colors && product.colors.length > 0 && (
+                    <div className="mb-6">
+                      <h3 className="font-semibold text-white-800 mb-2">Available Colors:</h3>
+                      <div className="flex space-x-2">
+                        {product.colors.map((colorVariant) => (
+                          <button
+                            key={colorVariant.color}
+                            onClick={() => handleColorChange(colorVariant)}
+                            className={`border border-white-400 rounded-md py-2 px-4 text-sm font-medium text-white-800 ${selectedColor === colorVariant.color ? 'bg-teal-600 text-white' : ''
+                              }`}
+                          >
+                            {colorVariant.color}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
 
                 {product.colors.find((variant) => variant.color === selectedColor)?.sizes && (
                   <div className="mb-6">
@@ -841,7 +868,7 @@ function Countinues() {
       {/* Enhanced Price Details Section */}
       <div className="bg-gray-800 p-6 rounded shadow-lg mb-6 w-[60vw] mx-auto">
         <h3 className="text-2xl font-bold mb-4 text-center text-gray-200">Price Details</h3>
-        
+
         <div className="flex justify-between text-gray-400 text-lg mb-2">
           <span>Shipping</span>
           <span className="font-medium text-white">₹{shippingCost.toFixed(2)}</span>

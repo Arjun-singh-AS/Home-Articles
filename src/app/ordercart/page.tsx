@@ -499,7 +499,7 @@ function OrderCart() {
         </div>
       </div>
 
-      <div className="flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center py-3">
         <h3 className="text-xl font-bold mb-4">Select Payment Method</h3>
         <div className="flex items-center my-3">
           <input

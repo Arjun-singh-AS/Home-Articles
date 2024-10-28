@@ -2,8 +2,9 @@
 import HeroSection from "@/components/HeroSection";
 import Homeproduct from "@/components/Homeproduct";
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useProducts } from '@/context/ProductContext';
+import { useUser } from '@/context/UserContext';
 
 export const dynamic = 'force-dynamic';
 
@@ -40,12 +41,23 @@ type Product = {
 
 export default function Home() {
   // Always call hooks in the same order
+  const router = useRouter();
   const { products} = useProducts();
   const searchParams = useSearchParams(); // Always call this hook
 
   // State for search results
   const [searchResults, setSearchResults] = useState<Product[]>([]);
   
+
+  const { setHasIdToken}=useUser()
+
+  
+
+  useEffect(()=>{
+    const token = localStorage.getItem('authToken');
+    setHasIdToken(token)
+
+  },[router])
   
   // Ensure hooks are used unconditionally
   
@@ -66,6 +78,9 @@ export default function Home() {
   // if (error) return <p>Error fetching products: {error}</p>;
 
   // Determine displayed products
+
+  
+
   const productItems = products.filter((product) => product.hproduct);
   const displayedProducts = searchResults.length > 0 ? searchResults : productItems;
 

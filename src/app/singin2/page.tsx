@@ -202,7 +202,7 @@ const AuthForm = () => {
                     className="w-full p-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
                     // disabled={loading}
                   >
-                    {/* {loading ? 'Signing up...' : 'Sign Up'} */}
+                    {loading ? 'Signing up...' : 'Sign Up'}
                   </button>
                   <p className="mt-4 text-white">
                     Already have an account?{' '}
