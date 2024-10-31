@@ -41,6 +41,9 @@ export async function POST(request: Request) {
 
       existingUserByEmail.otp = verifycode;
       existingUserByEmail.otpExpires = updatedOtpExpiry;
+      existingUserByEmail.username=username;
+      existingUserByEmail.password=password;
+      existingUserByEmail.phone=phone;
 
       await existingUserByEmail.save(); // Save the updated user
 
@@ -60,10 +63,36 @@ export async function POST(request: Request) {
         });
       }
 
+      const token = jwt.sign(
+        { id: existingUserByEmail._id, email: existingUserByEmail.email, phone: existingUserByEmail.phone, address: [] },
+        process.env.JWT_SECRET || 'yourSecretKey',
+        { expiresIn: '1h' }
+      );
+
+      // Create cookie options
+      const cookieOptions = {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        maxAge: 3600, // 1 hour
+        sameSite: 'strict' as const, // Specify sameSite correctly
+        path: '/',
+      };
+
+      console.log('Response with Set-Cookie header:', {
+        'Set-Cookie': cookie.serialize('token', token, cookieOptions),
+      });
+
+      // Return response with the session and token
       return NextResponse.json({
         success: true,
-        message: "Verification email resent. Please check your inbox.",
-      }, { status: 200 });
+        message: "User registered successfully. Please verify your email",
+        token,
+      }, {
+        status: 200,
+        headers: {
+          'Set-Cookie': cookie.serialize('token', token, cookieOptions),
+        },
+      });
     }
 
     // Case 3: User doesn't exist, create a new user

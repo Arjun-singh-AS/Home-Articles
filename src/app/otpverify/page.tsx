@@ -68,7 +68,7 @@ const OTPForm: React.FC = () => {
         // const data=localStorage.getItem('authToken')
         
         // setHasIdToken(data)
-        // console.log(user)s
+        // console.log(user)
         router.push('/');
       } else {
         setError('OTP verification failed! Please try again.');
