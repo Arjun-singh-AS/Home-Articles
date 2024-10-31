@@ -65,7 +65,7 @@ const OTPForm: React.FC = () => {
       if (result.success) {
         setSuccess('OTP verified successfully!');
         alert('OTP verified successfully!');
-        const data=localStorage.getItem('authToken')
+        // const data=localStorage.getItem('authToken')
         
         // setHasIdToken(data)
         // console.log(user)s
