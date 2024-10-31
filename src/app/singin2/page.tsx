@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 // import cookie from 'cookie';
 // import { cookies } from 'next/headers';
 import { useRouter } from 'next/navigation';
-import { useUser } from '@/context/UserContext';
+// import { useUser } from '@/context/UserContext';
 export const dynamic = 'force-dynamic';
 
 const AuthForm = () => {
@@ -19,7 +19,7 @@ const AuthForm = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const { setHasIdToken, user}=useUser()
+  // const { setHasIdToken, user}=useUser()
   
   const toggleForm = () => {
     setIsLogin((prev) => !prev);
@@ -64,6 +64,7 @@ const AuthForm = () => {
         
         if(!isLogin){
           // Redirect to OTP check page and pass email as query parameter
+          // setHasIdToken(data.token)
           route.push('/otpverify')
         }
         else{
@@ -73,8 +74,8 @@ const AuthForm = () => {
         
         setFormData({ username: '', email: 
           '', phone: '', password: '' });
-        setHasIdToken(data.token)
-        console.log(user)
+        
+        // console.log(user)
           
       } else {
         setError(data.message);

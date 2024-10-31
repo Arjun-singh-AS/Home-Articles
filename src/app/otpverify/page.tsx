@@ -2,7 +2,7 @@
 import React, { useState, useEffect, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import jwt from 'jsonwebtoken';
-import { useUser } from '@/context/UserContext';
+// import { useUser } from '@/context/UserContext';
 
 export const dynamic = 'force-dynamic';
 
@@ -14,7 +14,7 @@ const OTPForm: React.FC = () => {
   const [success, setSuccess] = useState<string>('');
   const [id, setId] = useState<string | null>(null);
   const [email, setEmail] = useState<string | null>(null);
-  const { setHasIdToken, user}=useUser()
+  // const { setHasIdToken, user}=useUser()
 
   console.log("otp verify front");
 
@@ -66,8 +66,9 @@ const OTPForm: React.FC = () => {
         setSuccess('OTP verified successfully!');
         alert('OTP verified successfully!');
         const data=localStorage.getItem('authToken')
-        setHasIdToken(data)
-        console.log(user)
+        
+        // setHasIdToken(data)
+        // console.log(user)s
         router.push('/');
       } else {
         setError('OTP verification failed! Please try again.');
