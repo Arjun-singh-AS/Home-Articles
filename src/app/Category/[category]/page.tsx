@@ -8,7 +8,6 @@ import { useProducts } from '@/context/ProductContext';
 
 import { useParams } from 'next/navigation';
 
-export const dynamic = 'force-dynamic';
 
 export type Review = {
   username: string;
