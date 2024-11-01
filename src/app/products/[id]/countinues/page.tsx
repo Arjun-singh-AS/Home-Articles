@@ -12,13 +12,9 @@ import jwt from 'jsonwebtoken';
 import { useUser } from '@/context/UserContext';
 import Image from 'next/image';
 import Head from 'next/head';
-import { Metadata } from 'next';
 
 export const dynamic = 'force-dynamic';
 
-export const metadata:Metadata={
-  title:"Product"
-}
 
 type Review = {
   username: string;
