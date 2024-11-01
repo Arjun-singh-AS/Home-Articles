@@ -1,5 +1,4 @@
 import { MetadataRoute } from "next";
-import { userAgent } from "next/server";
 
 export default function robot():MetadataRoute.Robots{
     return{
