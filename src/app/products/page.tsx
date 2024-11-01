@@ -4,6 +4,11 @@ import { InfiniteMovingCardsDemo } from '@/components/Movingcards';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useProducts } from '@/context/ProductContext';
+import { Metadata } from 'next';
+
+export const metadata:Metadata={
+  title:"Products"
+}
 // In '@/model/Product.ts'
 type Review = {
   username: string;

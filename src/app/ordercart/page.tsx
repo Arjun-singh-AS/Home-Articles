@@ -10,8 +10,13 @@ import { useProducts } from '@/context/ProductContext';
 import jwt from 'jsonwebtoken';
 import { useUser } from '@/context/UserContext';
 import Image from 'next/image';
+import { Metadata } from 'next';
 
 export const dynamic = 'force-dynamic';
+
+export const metadata:Metadata={
+  title:"Order"
+}
 
 declare global {
   interface Window {

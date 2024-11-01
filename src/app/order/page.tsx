@@ -2,8 +2,13 @@
 import { useUser } from '@/context/UserContext';
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { Metadata } from 'next';
 
 export const dynamic = 'force-dynamic';
+
+export const metadata:Metadata={
+  title:"Order"
+}
 
 type Order = {
   orderId: string;

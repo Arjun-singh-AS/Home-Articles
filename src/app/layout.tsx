@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     siteName: "Home Articles",
     images: [
       {
-        url: "https://yourdomain.com/og-image.jpeg",
+        url: "https://home-articles.vercel.app/opengraph-image.jpeg",
         width: 1200,
         height: 630,
         alt: "Home Articles - Quality Home Products",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Home Articles - India's Online Destination for Quality Home Products",
     description: "Explore top-quality furniture, kitchen essentials, and decor exclusively for India on Home Articles.",
-    images: ["https://home-articles.vercel.app/og-image.jpeg"]
+    images: ["https://home-articles.vercel.app/opengraph-image.jpeg"]
   },
   
 };
@@ -62,7 +62,7 @@ export default function RootLayout({
         <meta property="og:description" content="Shop the best in home decor, unique, and kitchen essentials exclusively in India with Home Articles." />
         <meta property="og:url" content="https://home-articles.vercel.app/" />
         <meta property="og:site_name" content="Home Articles" />
-        <meta property="og:image" content="https://home-articles.vercel.app/og-image.jpeg" />
+        <meta property="og:image" content="https://home-articles.vercel.app/opengraph-image.jpeg" />
         <meta property="og:locale" content="en_IN" />
         <meta property="og:type" content="website" />
 
@@ -70,7 +70,7 @@ export default function RootLayout({
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Home Articles - India's Online Destination for Quality Home Products" />
         <meta name="twitter:description" content="Explore top-quality home decoration, kitchen essentials, and decor exclusively for India on Home Articles." />
-        <meta name="twitter:image" content="https://home-articles.vercel.app/og-image.jpeg" />  
+        <meta name="twitter:image" content="https://home-articles.vercel.app/opengraph-image.jpeg" />  
 
         {/* Optional Facebook App ID */}
         <meta property="fb:app_id" content="YOUR_FACEBOOK_APP_ID" />
