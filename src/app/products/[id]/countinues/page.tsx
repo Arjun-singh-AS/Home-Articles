@@ -208,6 +208,9 @@ function Countinues() {
       // setHasIdToken, user, isLoadingUser, userError
 
       if (token && (!user || !user.isVerified)) {
+        if(!user){
+          router.push('/')
+        }
         alert("Please verify your email id by registering again.");
         router.push('/singin2');
         return;
