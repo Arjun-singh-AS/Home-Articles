@@ -124,6 +124,10 @@ function OrderCart() {
       // setHasIdToken, user, isLoadingUser, userError
 
       if (token && (!user || !user.isVerified)) {
+        if(!user){
+          router.push('/')
+          return;
+        }
         alert("Please verify your email id by registering again.");
         router.push('/singin2');
         return;
